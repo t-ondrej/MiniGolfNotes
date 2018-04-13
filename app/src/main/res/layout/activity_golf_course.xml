@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_golf_course"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="sk.upjs.ics.minigolf.course.GolfCourseActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/golf_course_toolbar"
+        android:elevation="4dp" />
+
+    <LinearLayout
+        android:id="@+id/rankingFragmentPlace"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <!--  <include
+          layout="@layout/ranking_fragment"/>
+       <fragment
+          android:id="@+id/rankingFragment"
+          android:name="sk.upjs.ics.minigolf.course.RankingFragment"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" /> -->
+
+    <!--android:theme="?attr/actionBarTheme"
+           android:minHeight="?attr/actionBarSize" -->
+</LinearLayout>

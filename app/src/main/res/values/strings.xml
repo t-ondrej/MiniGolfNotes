@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MiniGolf</string>
+    <string name="settings">Nastavenia</string>
+    <string name="hit_count">Počet úderov</string>
+    <string name="hole_count">Počet jamiek</string>
+    <string name="save_location">Uložiť polohu</string>
+    <string name="players">Hráči</string>
+    <string name="default_number">0</string>
+    <string name="new_game">Nová hra</string>
+    <string name="history">História</string>
+    <string name="next_image_button">Navigácia ďalej</string>
+    <string name="player">Hráč %d</string>
+    <string name="name">Meno</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

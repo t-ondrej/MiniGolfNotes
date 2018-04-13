@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <ImageView
+            android:id="@+id/standingImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+
+        <EditText
+            android:id="@+id/scoreEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:text="Player (0)"
+            android:textSize="@dimen/material_text_body1" />
+
+        <biz.kasual.materialnumberpicker.MaterialNumberPicker
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:npMinValue="1"
+            app:npMaxValue="50"
+            app:npDefaultValue="10"
+            app:npBackgroundColor="@color/colorAccent"
+            app:npSeparatorColor="@color/colorAccent"
+            app:npTextColor="@color/colorPrimary"
+            app:npTextSize="25sp"/>
+
+
+    </TableRow>
+
+    <!-- <Spinner
+            android:id="@+id/pointSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-53dp"
+            android:layout_weight="1" /> -->
+</TableLayout>
+

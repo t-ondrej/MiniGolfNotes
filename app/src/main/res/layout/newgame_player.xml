@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/editTextPlayer"
+    style="@style/textFieldPlayer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="14dp"
+    android:backgroundTint="@color/colorPrimary"
+    android:ems="10"
+    android:inputType="textPersonName"
+    android:text="@string/name"
+    android:textColor="@color/primary_text"
+    android:textSize="@dimen/material_text_body1"
+    android:drawableRight="@drawable/ic_clear_black_24dp"/>
+
