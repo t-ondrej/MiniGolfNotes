@@ -17,17 +17,18 @@ public class Game implements PlayerManager {
     private boolean saveLocation;
     private long timestamp;
     private List<Player> players;
+    private int currentHole;
 
     public Game() {
         players = new ArrayList<>();
+        timestamp = System.currentTimeMillis();
     }
 
     public Game(int hitCountMax, int holeCount, boolean saveLocation, List<Player> players) {
-        this.hitCountMax = hitCountMax;
-        this.holeCount = holeCount;
-        this.saveLocation = saveLocation;
-        this.players = players;
-        this.timestamp = System.currentTimeMillis();
+        this(hitCountMax, holeCount, saveLocation, System.currentTimeMillis(), players);
+
+        for (Player player : players)
+            player.createScoreArray(holeCount);
     }
 
     public Game(int hitCountMax, int holeCount, boolean saveLocation, long timestamp, List<Player> players) {
@@ -76,6 +77,8 @@ public class Game implements PlayerManager {
     @Override
     public void addPlayer(Player player) {
         players.add(player);
+        player.setGame(this);
+        player.createScoreArray(this.holeCount);
     }
 
     @Override
@@ -135,6 +138,11 @@ public class Game implements PlayerManager {
 
     public void setHoleCount(int holeCount) {
         this.holeCount = holeCount;
+
+        for (Player player : players) {
+            player.createScoreArray(this.holeCount);
+        }
+
     }
 
     public void setSaveLocation(boolean saveLocation) {

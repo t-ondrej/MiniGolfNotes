@@ -39,8 +39,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@id/tabLayout"
-         />
+        android:layout_below="@id/tabLayout" />
 
 <!--
     <LinearLayout

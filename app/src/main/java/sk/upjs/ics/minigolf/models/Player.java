@@ -11,6 +11,8 @@ public class Player {
     private Long id;
     private String name;
     private int score;
+    private int[] scores;
+    private Game game;
 
     public Player() {
         // Placeholder
@@ -35,15 +37,21 @@ public class Player {
         if (bundle.containsKey("score"))
             player.setScore(bundle.getInt("score"));
 
+        if (bundle.containsKey("scores"))
+            player.setScores(bundle.getIntArray("scores"));
+
         return player;
     }
 
     public Bundle toBundle() {
         Bundle bundle = new Bundle();
+
         if (id != null)
             bundle.putLong("id", id);
+
         bundle.putString("name", name);
         bundle.putInt("score", score);
+        bundle.putIntArray("scores", scores);
 
         return bundle;
     }
@@ -74,5 +82,35 @@ public class Player {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public String getScoreString() {
+        int totalScore = 0;
+
+        for (int scoree : scores)
+            totalScore += scoree;
+
+        return "(" + Integer.toString(totalScore) + ")";
+    }
+
+    public void createScoreArray(int holeCount) {
+        this.scores = new int[holeCount];
+    }
+
+    public int getScoreAtHole(int holeIdx) {
+        return this.scores[holeIdx];
+    }
+
+    public void setScoreAtHole(int holeIdx, int score) {
+        this.scores[holeIdx] = score;
+        this.score += score;
+    }
+
+    public void setScores(int[] scores) {
+        this.scores = scores;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

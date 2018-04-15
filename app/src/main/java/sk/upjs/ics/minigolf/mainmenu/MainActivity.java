@@ -15,6 +15,8 @@ import sk.upjs.ics.minigolf.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    // TODO: change buttons margin, add toolbar, add spinners instead of number textbox
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void configureTabLayout() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        final ViewPager viewPager = findViewById(R.id.pager);
         final HomescreenPagerAdapter adapter = new HomescreenPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
 

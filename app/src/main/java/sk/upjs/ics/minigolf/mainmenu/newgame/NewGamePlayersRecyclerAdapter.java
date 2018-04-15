@@ -5,7 +5,6 @@ import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,8 +24,7 @@ import sk.upjs.ics.minigolf.models.Player;
 public class NewGamePlayersRecyclerAdapter extends RecyclerView.Adapter<NewGamePlayersRecyclerAdapter.PlayerViewHolder> {
 
     class PlayerViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.editTextPlayer) EditText nameTextView;
-        int position;
+        @BindView(R.id.playerNameEditText) EditText playerNameEditText;
 
         PlayerViewHolder(View itemView) {
             super(itemView);
@@ -35,20 +33,39 @@ public class NewGamePlayersRecyclerAdapter extends RecyclerView.Adapter<NewGameP
         }
 
         private void addClearButtonClickHandler() {
-            nameTextView.setOnTouchListener((v, event) -> {
+            playerNameEditText.setOnTouchListener((v, event) -> {
                 final int DRAWABLE_LEFT = 0;
                 final int DRAWABLE_TOP = 1;
                 final int DRAWABLE_RIGHT = 2;
                 final int DRAWABLE_BOTTOM = 3;
 
                 if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (nameTextView.getRight() - nameTextView.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        removeAt(position);
+                    if(event.getRawX() >= (playerNameEditText.getRight() - playerNameEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        removeAt(getAdapterPosition());
 
                         return true;
                     }
                 }
                 return false;
+            });
+        }
+
+        public void bindEditText(Player player) {
+            playerNameEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    player.setName(s.toString());
+                }
             });
         }
     }
@@ -74,32 +91,14 @@ public class NewGamePlayersRecyclerAdapter extends RecyclerView.Adapter<NewGameP
 
         Resources res = context.getResources();
 
-        /*other.nameTextView.setText(res.getString(R.string.player, game.getPlayers().size() - 1));
-        other.nameTextView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                game.getPlayers().get(viewType).setName(s.toString());
-            }
-        });*/
-
         return other;
     }
 
     @Override
     public void onBindViewHolder(PlayerViewHolder holder, int position) {
         Player player = game.getPlayers().get(position);
-        holder.nameTextView.setText(player.getName());
-        holder.position = position;
+        holder.playerNameEditText.setText(player.getName());
+        holder.bindEditText(player);
     }
 
     @Override

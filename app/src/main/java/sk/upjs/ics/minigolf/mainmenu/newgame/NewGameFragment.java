@@ -16,7 +16,7 @@ import android.widget.Switch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
-import sk.upjs.ics.minigolf.course.GolfCourseActivity;
+import sk.upjs.ics.minigolf.course.CourseActivity;
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
 
@@ -41,7 +41,7 @@ public class NewGameFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);*/
 
-        game.getPlayers().add(new Player("Hráč 1"));
+        game.addPlayer(new Player("Hráč 1"));
 
         NewGamePlayersRecyclerAdapter adapter = new NewGamePlayersRecyclerAdapter(game, this.getContext());
         recyclerView.setAdapter(adapter);
@@ -64,7 +64,7 @@ public class NewGameFragment extends Fragment {
             game.setHitCountMax(Integer.parseInt(hitCountField.getText().toString()));
             game.setSaveLocation(saveLocationSwitch.isEnabled());
 
-            Intent intent = new Intent(getActivity(), GolfCourseActivity.class);
+            Intent intent = new Intent(getActivity(), CourseActivity.class);
             intent = intent.putExtras(game.toBundle());
             startActivity(intent);
         });
