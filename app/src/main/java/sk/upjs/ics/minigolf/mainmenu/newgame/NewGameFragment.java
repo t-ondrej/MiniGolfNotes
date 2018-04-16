@@ -1,8 +1,13 @@
 package sk.upjs.ics.minigolf.mainmenu.newgame;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -20,14 +25,23 @@ import sk.upjs.ics.minigolf.course.CourseActivity;
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
 
+import static android.content.Context.LOCATION_SERVICE;
+import static sk.upjs.ics.minigolf.Utils.verifyLocationPermissions;
+
 public class NewGameFragment extends Fragment {
 
-    @BindView(R.id.newgameRecyclerView)             RecyclerView recyclerView;
-    @BindView(R.id.addPlayerFloatingActionButton)   FloatingActionButton addPlayerButton;
-    @BindView(R.id.startGameImageButton)            ImageButton startGameImageButton;
-    @BindView(R.id.saveLocationSwitch)              Switch saveLocationSwitch;
-    @BindView(R.id.hitCountField)                   EditText hitCountField;
-    @BindView(R.id.holesCountField)                 EditText holesCountField;
+    @BindView(R.id.newgameRecyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.addPlayerFloatingActionButton)
+    FloatingActionButton addPlayerButton;
+    @BindView(R.id.startGameImageButton)
+    ImageButton startGameImageButton;
+    @BindView(R.id.saveLocationSwitch)
+    Switch saveLocationSwitch;
+    @BindView(R.id.hitCountField)
+    EditText hitCountField;
+    @BindView(R.id.holesCountField)
+    EditText holesCountField;
 
     private Game game = new Game();
 
@@ -55,7 +69,7 @@ public class NewGameFragment extends Fragment {
         addPlayerButton.setOnClickListener(v -> {
             game.addPlayer(new Player("Hráč " + (game.getPlayerCount() + 1)));
             adapter.notifyItemInserted(game.getPlayerCount() - 1);
-            adapter.notifyItemRangeChanged(game.getPlayerCount()  - 1, game.getPlayerCount() );
+            adapter.notifyItemRangeChanged(game.getPlayerCount() - 1, game.getPlayerCount());
             Log.i("Number of items: ", Integer.toString(game.getPlayers().size()));
         });
 
@@ -64,11 +78,32 @@ public class NewGameFragment extends Fragment {
             game.setHitCountMax(Integer.parseInt(hitCountField.getText().toString()));
             game.setSaveLocation(saveLocationSwitch.isEnabled());
 
+            if (game.isSaveLocation()) {
+                LocationManager locationManager = (LocationManager) this.getContext()
+                        .getSystemService(LOCATION_SERVICE);
+
+                if (locationManager != null) {
+                    if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                            && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        verifyLocationPermissions(this.getActivity());
+                    }
+                    Location location = locationManager
+                            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                    if (location != null) {
+                        game.setLattitude(location.getLatitude());
+                        game.setLongitude(location.getLongitude());
+                    }
+                }
+            }
+
             Intent intent = new Intent(getActivity(), CourseActivity.class);
             intent = intent.putExtras(game.toBundle());
             startActivity(intent);
         });
     }
+
+
 
 
 }

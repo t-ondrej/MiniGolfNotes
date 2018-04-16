@@ -20,11 +20,6 @@ import sk.upjs.ics.minigolf.models.Game;
 
 public class CourseActivity extends AppCompatActivity {
 
-    @BindView(R.id.courseToolbar) Toolbar toolbar;
-    @BindView(R.id.courseCompleteImageView) ImageView courseCompleteImageView;
-    // @BindView(R.id.playersRecyclerView)
-    // RecyclerView recyclerView;
-
     private Game game;
 
     @Override

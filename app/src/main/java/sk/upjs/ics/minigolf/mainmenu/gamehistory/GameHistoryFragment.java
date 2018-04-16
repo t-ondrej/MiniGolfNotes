@@ -1,7 +1,6 @@
 package sk.upjs.ics.minigolf.mainmenu.gamehistory;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,6 @@ public class GameHistoryFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.history_fragment, container, false);
+        return inflater.inflate(R.layout.gamehistory_fragment, container, false);
     }
 }

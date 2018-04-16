@@ -31,9 +31,10 @@ dependencies {
     //#####################################################################
     //          Support Library
     //#####################################################################
+    implementation 'com.android.support:support-v4:27.1.1'
     compile 'com.android.support:appcompat-v7:27.0.+'
     compile 'com.android.support:palette-v7:27.0.+'
-    compile 'com.android.support:design:27.0.+'
+    compile 'com.android.support:design:27.1.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:27.0.+'
     compile 'com.android.support:cardview-v7:27.0.+'
@@ -46,4 +47,8 @@ dependencies {
     compile 'biz.kasual:materialnumberpicker:1.2.1'
     compile 'com.h6ah4i.android.widget:numberpickercompat:0.1.0'
     compile 'com.shawnlin:number-picker:2.4.6'
+
+    // graphs
+    compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
 }

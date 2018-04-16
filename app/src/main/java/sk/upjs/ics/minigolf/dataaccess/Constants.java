@@ -21,4 +21,5 @@ public interface Constants {
 	Object 							NO_COOKIE = null;
 	int 							NO_FLAGS = 0;
 	int 							DEFAULT_LOADER_ID = 0;
+	int								REQUEST_IMAGE_CAPTURE = 1;
 }

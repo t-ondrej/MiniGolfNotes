@@ -3,6 +3,8 @@ package sk.upjs.ics.minigolf.models;
 import android.os.Bundle;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -17,8 +19,12 @@ public class Game implements PlayerManager {
     private boolean saveLocation;
     private long timestamp;
     private List<Player> players;
-    private int currentHole;
+    private double longitude;
+    private double lattitude;
 
+    /**
+     * Constructors
+     */
     public Game() {
         players = new ArrayList<>();
         timestamp = System.currentTimeMillis();
@@ -39,6 +45,9 @@ public class Game implements PlayerManager {
         this.timestamp = timestamp;
     }
 
+    /**
+     * Bundles
+     */
     public Bundle toBundle() {
         Bundle bundle = new Bundle();
         bundle.putInt("hitCountMax", hitCountMax);
@@ -68,6 +77,7 @@ public class Game implements PlayerManager {
                 bundle.getLong("timestamp"),
                 players);
     }
+
 
     @Override
     public int getPlayerCount() {
@@ -103,10 +113,38 @@ public class Game implements PlayerManager {
         players.remove(position);
     }
 
+    @Override
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    @Override
+    public List<Player> getPlayersSortedByScore() {
+        List<Player> playersCopy = new ArrayList<>(players);
+        Collections.sort(playersCopy, (p1, p2) -> Integer.compare(p1.getScore(), p2.getScore()));
+        return playersCopy;
+    }
+
     public List<Integer> getPossibleScores() {
         List<Integer> scores = new ArrayList<>();
         for (int i = 0; i <= hitCountMax; i++) {
             scores.add(i);
+        }
+
+        return scores;
+    }
+
+    public float[] getAverageScoresAtHoles() {
+        float[] scores = new float[holeCount];
+
+        for (int i = 0; i < holeCount; i++) {
+            float sum = 0;
+
+            for (Player player : players) {
+                sum += player.getScoreAtHole(i);
+            }
+
+            scores[i] = sum / players.size();
         }
 
         return scores;
@@ -128,9 +166,6 @@ public class Game implements PlayerManager {
         return timestamp;
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
 
     public void setHitCountMax(int hitCountMax) {
         this.hitCountMax = hitCountMax;
@@ -151,5 +186,21 @@ public class Game implements PlayerManager {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLattitude() {
+        return lattitude;
+    }
+
+    public void setLattitude(double lattitude) {
+        this.lattitude = lattitude;
     }
 }

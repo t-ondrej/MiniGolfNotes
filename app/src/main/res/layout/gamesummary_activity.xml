@@ -27,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/courseCompleteImageView"
-                android:onClick="onCompleteCourseClick"
+                android:onClick="onEndGameButtonClicked"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_centerHorizontal="true"
@@ -38,10 +38,8 @@
 
         </android.support.v7.widget.Toolbar>
 
-
-
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_game_summary" />
+    <include layout="@layout/gamesummary_content" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -71,7 +71,7 @@
     </LinearLayout>
 
      <include
-          layout="@layout/ranking_fragment"/>
+          layout="@layout/course_player_fragment"/>
        <fragment
           android:id="@+id/rankingFragment"
           android:name="sk.upjs.ics.minigolf.course.RankingFragment"

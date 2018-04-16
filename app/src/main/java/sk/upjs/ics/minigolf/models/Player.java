@@ -77,7 +77,12 @@ public class Player {
     }
 
     public int getScore() {
-        return score;
+        int totalScore = 0;
+
+        for (int scoree : scores)
+            totalScore += scoree;
+
+        return totalScore;
     }
 
     public void setScore(int score) {

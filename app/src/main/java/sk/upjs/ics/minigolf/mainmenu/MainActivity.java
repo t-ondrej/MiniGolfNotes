@@ -15,7 +15,10 @@ import sk.upjs.ics.minigolf.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO: change buttons margin, add toolbar, add spinners instead of number textbox
+    /* TODO: change buttons margin, add toolbar, add spinners instead of number textbox
+             white plus image to FAB, add appbar to the main activity, change text color from black to white
+             textColor might be primaryColor
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import sk.upjs.ics.minigolf.models.Player;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPlayerViewHolder> {
 
+    // TODO: dont pass game but only player
     class RankedPlayerViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.playerNameTextView)  TextView nameTextView;
         @BindView(R.id.playerScoreTextView) TextView scoreEditText;
@@ -68,7 +68,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPl
     @Override
     public RankingAdapter.RankedPlayerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View otherItemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.player_info, parent, false);
+                .inflate(R.layout.course_player, parent, false);
 
         return new RankedPlayerViewHolder(otherItemView);
     }
