@@ -4,10 +4,6 @@ import android.content.UriMatcher;
 import android.net.Uri;
 import android.util.SparseArray;
 
-/**
- * Created by Tomas on 14.6.2017.
- */
-
 public class UriMatcherWrapper {
 
     private UriMatcher mUriMatcher;

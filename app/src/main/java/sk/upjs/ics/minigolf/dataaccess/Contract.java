@@ -4,10 +4,6 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-/**
- * Created by Tomas on 16.6.2017.
- */
-
 public final class Contract {
 
     public static final String AUTHORITY = "sk.upjs.ics.minigolf.dataaccess.MinigolfContentProvider";
@@ -36,10 +32,18 @@ public final class Contract {
         String IDGAME = "id_game";
     }
 
+    interface ScoreToPlayerColumns extends BaseColumns {
+        String TABLE_NAME = "score_to_player";
+        String SCORE = "points";
+        String HOLE = "hole";
+        String IDPLAYER = "id_player";
+    }
+
     /** PATHS **/
     public static final String PATH_GAME = "game";
     public static final String PATH_PLAYER = "player";
     public static final String PATH_PLAYERTOGAME = "player_to_game";
+    public static final String PATH_SCORETOPLAYER = "score_to_player";
 
     /** TABLES **/
     public static final class Game implements GameColumns {
@@ -79,6 +83,14 @@ public final class Contract {
                 .scheme(ContentResolver.SCHEME_CONTENT)
                 .authority(AUTHORITY)
                 .appendPath(PATH_PLAYERTOGAME)
+                .build();
+    }
+
+    public static final class ScoreToPlayer implements ScoreToPlayerColumns {
+        public static final Uri CONTENT_URI = new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_CONTENT)
+                .authority(AUTHORITY)
+                .appendPath(PATH_SCORETOPLAYER)
                 .build();
     }
 }

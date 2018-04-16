@@ -25,7 +25,6 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
-import sk.upjs.ics.minigolf.course.CoursePagerAdapter;
 import sk.upjs.ics.minigolf.models.Game;
 
 import static sk.upjs.ics.minigolf.Utils.verifyStoragePermissions;

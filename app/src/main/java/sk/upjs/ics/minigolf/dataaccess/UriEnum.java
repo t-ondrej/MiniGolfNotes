@@ -2,10 +2,6 @@ package sk.upjs.ics.minigolf.dataaccess;
 
 import android.net.Uri;
 
-/**
- * Created by Tomas on 14.6.2017.
- */
-
 public enum UriEnum {
 
     // Note: even numbers means we want to find by id
@@ -26,7 +22,11 @@ public enum UriEnum {
 
     PLAYERTOGAME(5, Contract.PATH_PLAYERTOGAME,
             Contract.PlayerToGame.TABLE_NAME,
-            Contract.PlayerToGame.CONTENT_URI);
+            Contract.PlayerToGame.CONTENT_URI),
+
+    SCORETOPLAYER(6, Contract.PATH_SCORETOPLAYER,
+                 Contract.ScoreToPlayer.TABLE_NAME,
+                 Contract.ScoreToPlayer.CONTENT_URI);
 
     public int code;
     public String path;

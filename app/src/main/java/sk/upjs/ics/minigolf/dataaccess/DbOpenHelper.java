@@ -4,10 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by Tomas on 13.6.2017.
- */
-
 public class DbOpenHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "MiniGolfNotes";
@@ -17,10 +13,14 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         String GAME = "game";
         String PLAYER = "player";
         String PLAYER_TO_GAME = "player_to_game";
+        String SCORE = "score";
 
         String GAME_JOIN_PLAYER = "player_to_game PTG " +
                 "JOIN game G ON PTG.id_game = G._id " +
                 "JOIN player P ON PTG.id_player = P._id";
+
+        String SCORE_JOIN_PLAYER = "score S " +
+                "JOIN player P on S.id_player = P._id";
     }
 
     public DbOpenHelper(Context context) {
@@ -32,6 +32,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         db.execSQL(createPlayerTableSql());
         db.execSQL(createGameTableSql());
         db.execSQL(createPlayerToGameTableSql());
+        db.execSQL(createScoreToPlayerTableSql());
     }
 
     @Override
@@ -84,5 +85,20 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 Contract.PlayerToGame.IDPLAYER, Contract.Player.TABLE_NAME, Contract.Player._ID,
                 Contract.PlayerToGame.IDGAME, Contract.Game.TABLE_NAME, Contract.Game._ID
                 );
+    }
+
+    private String createScoreToPlayerTableSql() {
+        String sqlTemplate = "CREATE TABLE %s ("
+                + "%s INTEGER,"
+                + "%s INTEGER,"
+                + "FOREIGN KEY(%s) REFERENCES %s(%s),"
+                + ")";
+
+        return String.format(sqlTemplate,
+                Contract.ScoreToPlayer.TABLE_NAME,
+                Contract.ScoreToPlayer.SCORE,
+                Contract.ScoreToPlayer.HOLE,
+                Contract.ScoreToPlayer.IDPLAYER, Contract.Player.TABLE_NAME, Contract.Player._ID
+        );
     }
 }

@@ -3,7 +3,6 @@ package sk.upjs.ics.minigolf.dataaccess;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 
 public interface Constants {
 	String[] 						NO_PROJECTION = null;

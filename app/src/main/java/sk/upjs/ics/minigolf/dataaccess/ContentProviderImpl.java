@@ -9,7 +9,6 @@ import android.net.Uri;
 
 import static sk.upjs.ics.minigolf.dataaccess.Constants.*;
 
-
 public class ContentProviderImpl extends ContentProvider {
 
     private DbOpenHelper databaseHelper;
