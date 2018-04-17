@@ -59,27 +59,19 @@ public class GameSummaryActivity extends AppCompatActivity {
 
         configureTabLayout();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
     }
 
     public void onAddPhotoButtonClick(View view) {
         Log.i("CLICKED:", "add photo");
-       // Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-       // if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-       //     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-       // }
+
         verifyStoragePermissions(this);
         dispatchTakePictureIntent();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-       /* if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            mImageView.setImageBitmap(imageBitmap);
-        }*/
         setPic();
     }
 

@@ -25,7 +25,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPl
         @BindView(R.id.playerNameTextView)  TextView nameTextView;
         @BindView(R.id.playerScoreTextView) TextView scoreEditText;
         @BindView(R.id.pointSpinner)        Spinner pointSpinner;
-        @BindView(R.id.rankImageView)       ImageView standingImageView;
+        //@BindView(R.id.rankImageView)       ImageView standingImageView;
 
         RankedPlayerViewHolder(View itemView) {
             super(itemView);

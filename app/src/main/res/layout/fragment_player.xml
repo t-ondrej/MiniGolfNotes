@@ -18,7 +18,6 @@
             android:id="@+id/playerRankImageView"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            app:srcCompat="@drawable/ic_add_black_24dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"/>
 

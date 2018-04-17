@@ -23,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:text="Zhrnutie"
-                android:textSize="@dimen/material_text_headline" />
+                android:textSize="@dimen/material_text_headline"
+                android:textColor="@color/primary_black"/>
 
             <ImageView
                 android:id="@+id/courseCompleteImageView"
@@ -34,7 +35,7 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="right"
                 android:layout_marginRight="16dp"
-                app:srcCompat="@drawable/ic_check_white_24dp" />
+                app:srcCompat="@drawable/ic_check_black_24dp" />
 
         </android.support.v7.widget.Toolbar>
 

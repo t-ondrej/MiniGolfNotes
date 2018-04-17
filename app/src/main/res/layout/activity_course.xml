@@ -8,10 +8,6 @@
     android:layout_height="match_parent"
     tools:context="sk.upjs.ics.minigolf.course.CourseActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/courseToolbar"
@@ -26,7 +22,8 @@
             android:textSize="@dimen/material_text_headline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hra" />
+            android:text="Hra"
+            android:textColor="@color/primary_black"/>
 
         <ImageView
             android:id="@+id/courseCompleteImageView"
@@ -41,7 +38,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/holeTabLayout"
@@ -52,6 +48,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         app:tabMode="scrollable"
+        app:tabTextColor="@color/secondary_black"
+        app:tabSelectedTextColor="@color/primary_black"
         />
 
     <android.support.v4.view.ViewPager

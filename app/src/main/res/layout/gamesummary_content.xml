@@ -35,7 +35,7 @@
             android:clickable="true"
             android:onClick="onAddPhotoButtonClick"
             app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_add_white_24dp"
+            app:srcCompat="@drawable/ic_add_black_24dp"
             android:layout_margin="16dp"/>
     </android.support.design.widget.CoordinatorLayout>
 
@@ -46,7 +46,8 @@
         android:background="@color/colorPrimary"
         android:backgroundTint="@color/colorAccent"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabTextColor="@color/colorPrimary">
+        app:tabTextColor="@color/secondary_black"
+        app:tabSelectedTextColor="@color/primary_black">
 
         <android.support.design.widget.TabItem
             android:layout_width="wrap_content"
