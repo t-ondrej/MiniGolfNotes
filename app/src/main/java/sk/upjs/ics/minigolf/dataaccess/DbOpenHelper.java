@@ -13,7 +13,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         String GAME = "game";
         String PLAYER = "player";
         String PLAYER_TO_GAME = "player_to_game";
-        String SCORE = "score";
+        String SCORE_TO_PLAYER = "score_to_player";
 
         String GAME_JOIN_PLAYER = "player_to_game PTG " +
                 "JOIN game G ON PTG.id_game = G._id " +
@@ -37,33 +37,39 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // Placeholder
     }
 
     private String createPlayerTableSql() {
         String sqlTemplate = "CREATE TABLE %s ("
                 + "%s INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + "%s TEXT,"
                 + "%s TEXT"
                 + ")";
 
         return String.format(sqlTemplate,
                 Contract.Player.TABLE_NAME,
                 Contract.Player._ID,
-                Contract.Player.NAME);
+                Contract.Player.NAME,
+                Contract.Player.SCORES);
     }
 
     private String createGameTableSql() {
         String sqlTemplate = "CREATE TABLE %s ("
                 + "%s INTEGER PRIMARY KEY AUTOINCREMENT,"
-                + "%s DATETIME,"
-                + "%s TEXT,"
-                + "%s TEXT,"
+                + "%s INTEGER,"
+                + "%s INTEGER,"
+                + "%s INTEGER,"
+                + "%s REAL,"
+                + "%s REAL,"
                 + "%s TEXT"
                 + ")";
 
         return String.format(sqlTemplate,
                 Contract.Game.TABLE_NAME,
                 Contract.Game._ID,
+                Contract.Game.HITCOUNTMAX,
+                Contract.Game.HOLECOUNT,
                 Contract.Game.TIMESTAMP,
                 Contract.Game.LONGITUDE,
                 Contract.Game.LATITUDE,
@@ -79,11 +85,11 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 + ")";
 
         return String.format(sqlTemplate,
-                Contract.PlayerToGame.TABLE_NAME,
-                Contract.PlayerToGame.IDPLAYER,
-                Contract.PlayerToGame.IDGAME,
-                Contract.PlayerToGame.IDPLAYER, Contract.Player.TABLE_NAME, Contract.Player._ID,
-                Contract.PlayerToGame.IDGAME, Contract.Game.TABLE_NAME, Contract.Game._ID
+                Contract.GamePlayer.TABLE_NAME,
+                Contract.GamePlayer.IDPLAYER,
+                Contract.GamePlayer.IDGAME,
+                Contract.GamePlayer.IDPLAYER, Contract.Player.TABLE_NAME, Contract.Player._ID,
+                Contract.GamePlayer.IDGAME, Contract.Game.TABLE_NAME, Contract.Game._ID
                 );
     }
 
@@ -91,14 +97,16 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         String sqlTemplate = "CREATE TABLE %s ("
                 + "%s INTEGER,"
                 + "%s INTEGER,"
-                + "FOREIGN KEY(%s) REFERENCES %s(%s),"
+                + "%s INTEGER,"
+                + "FOREIGN KEY(%s) REFERENCES %s(%s)"
                 + ")";
 
         return String.format(sqlTemplate,
-                Contract.ScoreToPlayer.TABLE_NAME,
-                Contract.ScoreToPlayer.SCORE,
-                Contract.ScoreToPlayer.HOLE,
-                Contract.ScoreToPlayer.IDPLAYER, Contract.Player.TABLE_NAME, Contract.Player._ID
+                Contract.PlayerScore.TABLE_NAME,
+                Contract.PlayerScore.SCORE,
+                Contract.PlayerScore.HOLE,
+                Contract.PlayerScore.IDPLAYER,
+                Contract.PlayerScore.IDPLAYER, Contract.Player.TABLE_NAME, Contract.Player._ID
         );
     }
 }

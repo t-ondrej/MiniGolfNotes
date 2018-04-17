@@ -91,7 +91,7 @@ public class NewGameFragment extends Fragment {
                             .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                     if (location != null) {
-                        game.setLattitude(location.getLatitude());
+                        game.setLatitude(location.getLatitude());
                         game.setLongitude(location.getLongitude());
                     }
                 }

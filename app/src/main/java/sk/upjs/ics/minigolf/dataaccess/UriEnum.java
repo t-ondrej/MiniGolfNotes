@@ -4,29 +4,35 @@ import android.net.Uri;
 
 public enum UriEnum {
 
-    // Note: even numbers means we want to find by id
-
-    GAME(1, Contract.PATH_GAME,
+    GAMES(100,
+            Contract.PATH_GAMES,
             Contract.Game.TABLE_NAME,
             Contract.Game.CONTENT_URI),
-    GAME_SINGLE(2, Contract.PATH_GAME,
-            Contract.Game.TABLE_NAME + "/#",
+
+    GAMES_ID(101,
+            Contract.PATH_GAMES_ID,
+            Contract.Game.TABLE_NAME,
             Contract.Game.CONTENT_URI),
 
-    PLAYER(3, Contract.PATH_PLAYER,
+    GAMES_ID_PLAYERS(102,
+            Contract.PATH_PLAYER_TO_GAME,
+            Contract.GamePlayer.TABLE_NAME,
+            Contract.GamePlayer.CONTENT_URI),
+
+    PLAYERS(200,
+            Contract.PATH_PLAYERS,
             Contract.Player.TABLE_NAME,
             Contract.Player.CONTENT_URI),
-    PLAYER_SINGLE(4, Contract.PATH_PLAYER,
-            Contract.Player.TABLE_NAME + "/#",
+
+    PLAYERS_ID(201,
+            Contract.PATH_PLAYERS_ID,
+            Contract.Player.TABLE_NAME ,
             Contract.Player.CONTENT_URI),
 
-    PLAYERTOGAME(5, Contract.PATH_PLAYERTOGAME,
-            Contract.PlayerToGame.TABLE_NAME,
-            Contract.PlayerToGame.CONTENT_URI),
-
-    SCORETOPLAYER(6, Contract.PATH_SCORETOPLAYER,
-                 Contract.ScoreToPlayer.TABLE_NAME,
-                 Contract.ScoreToPlayer.CONTENT_URI);
+    PLAYERS_ID_SCORES(202,
+            Contract.PATH_SCORE_TO_PLAYER,
+                 Contract.PlayerScore.TABLE_NAME,
+                 Contract.PlayerScore.CONTENT_URI);
 
     public int code;
     public String path;
