@@ -161,15 +161,17 @@ public class ContentProviderImpl extends ContentProvider {
             }
             case GAMES_ID: {
                 final String gameId = Game.getGameId(uri);
-                return builder.table(Tables.GAME)
-                        .where(Game._ID + "=?", gameId);
+                return builder.table(Tables.GAME_JOIN_PLAYERS)
+                        .where("G." + Game._ID + "=?");
+              /*  return builder.table(Tables.GAME)
+                        .where(Game._ID + "=?", gameId);*/
             }
             case GAMES_ID_PLAYERS: {
                 final String gameId = Game.getGameId(uri);
-                return builder.table(Tables.GAME_JOIN_PLAYER)
+                return builder.table(Tables.GAME_JOIN_PLAYERS)
                         .mapToTable(Player._ID, Tables.PLAYER)
                         .mapToTable(Player.NAME, Tables.PLAYER)
-                        .where(Game._ID + "=?", gameId); // TODO: qualified
+                        .where("G." + Game._ID + "=?"); // TODO: qualified
             }
             case PLAYERS: {
                 return builder.table(Player.TABLE_NAME);

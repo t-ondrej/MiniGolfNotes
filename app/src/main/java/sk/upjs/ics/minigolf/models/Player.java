@@ -1,8 +1,12 @@
 package sk.upjs.ics.minigolf.models;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.TextUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import sk.upjs.ics.minigolf.dataaccess.Contract;
 
@@ -12,7 +16,6 @@ public class Player {
 
     private Long id;
     private String name;
-    private int score;
     private int[] scores;
     private Game game;
 
@@ -21,13 +24,14 @@ public class Player {
     }
 
     public Player(String name) {
+        this.id = -1L;
         this.name = name;
     }
 
-    public Player(Long id, String name, int score) {
+    public Player(Long id, String name, int[] scores) {
         this.id = id;
         this.name = name;
-        this.score = score;
+        this.scores = scores;
     }
 
     public static Player fromBundle(Bundle bundle) {
@@ -35,9 +39,6 @@ public class Player {
 
         if (bundle.containsKey("id"))
             player.setId(bundle.getLong("id"));
-
-        if (bundle.containsKey("score"))
-            player.setScore(bundle.getInt("score"));
 
         if (bundle.containsKey("scores"))
             player.setScores(bundle.getIntArray("scores"));
@@ -52,7 +53,6 @@ public class Player {
             bundle.putLong("id", id);
 
         bundle.putString("name", name);
-        bundle.putInt("score", score);
         bundle.putIntArray("scores", scores);
 
         return bundle;
@@ -70,6 +70,37 @@ public class Player {
         contentValues.put(Contract.Player.NAME, getName());
         contentValues.put(Contract.Player.SCORES, TextUtils.join(",", stringScores));
         return contentValues;
+    }
+
+    // Assumes that cursor is pointing to valid data
+    public static Player fromCursor(Cursor cursor) {
+        Player player = null;
+
+        long id = cursor.getLong(cursor.getColumnIndex(Contract.Player._ID));
+        String name = cursor.getString(cursor.getColumnIndex(Contract.Player.NAME));
+        String score = cursor.getString(cursor.getColumnIndex(Contract.Player.SCORES));
+
+        String[] strScores = score.split(",");
+        int[] scores = new int[strScores.length];
+        for (int i = 0; i < strScores.length; i++) {
+            scores[i] = Integer.parseInt(strScores[i]);
+        }
+
+        return player;
+    }
+
+    public static List<Player> allFromCursor(Cursor cursor) {
+        List<Player> players = new ArrayList<>();
+
+        if (cursor.moveToFirst()){
+            do {
+
+                players.add(Player.fromCursor(cursor));
+
+            } while(cursor.moveToNext());
+        }
+
+        return players;
     }
 
     public Long getId() {
@@ -97,10 +128,6 @@ public class Player {
         return totalScore;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     public String getScoreString() {
         int totalScore = 0;
 
@@ -120,7 +147,6 @@ public class Player {
 
     public void setScoreAtHole(int holeIdx, int score) {
         this.scores[holeIdx] = score;
-        this.score += score;
     }
 
     public void setScores(int[] scores) {

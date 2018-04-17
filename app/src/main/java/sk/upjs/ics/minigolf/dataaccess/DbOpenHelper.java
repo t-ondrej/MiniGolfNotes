@@ -15,12 +15,16 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         String PLAYER_TO_GAME = "player_to_game";
         String SCORE_TO_PLAYER = "score_to_player";
 
-        String GAME_JOIN_PLAYER = "player_to_game PTG " +
-                "JOIN game G ON PTG.id_game = G._id " +
-                "JOIN player P ON PTG.id_player = P._id";
+        String GAME_JOIN_PLAYERS = "game G " +
+                "LEFT JOIN player_to_game PTG on PTG.id_game = g._id " +
+                "LEFT JOIN player P on P._id = PTG.id_player ";
 
         String SCORE_JOIN_PLAYER = "score S " +
                 "JOIN player P on S.id_player = P._id";
+    }
+
+    interface Qualified {
+        String GAMES_GAME_ID = Tables.GAME + "." + Contract.Game._ID;
     }
 
     public DbOpenHelper(Context context) {

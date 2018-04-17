@@ -1,10 +1,13 @@
 package sk.upjs.ics.minigolf.mainmenu.newgame;
 
 import android.Manifest;
+import android.content.AsyncQueryHandler;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -22,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.course.CourseActivity;
+import sk.upjs.ics.minigolf.dataaccess.Contract;
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
 
@@ -76,9 +80,10 @@ public class NewGameFragment extends Fragment {
         startGameImageButton.setOnClickListener(v -> {
             game.setHoleCount(Integer.parseInt(holesCountField.getText().toString()));
             game.setHitCountMax(Integer.parseInt(hitCountField.getText().toString()));
-            game.setSaveLocation(saveLocationSwitch.isEnabled());
+            for (Player player : game.getPlayers())
+                player.createScoreArray(game.getHoleCount());
 
-            if (game.isSaveLocation()) {
+            if (saveLocationSwitch.isEnabled()) {
                 LocationManager locationManager = (LocationManager) this.getContext()
                         .getSystemService(LOCATION_SERVICE);
 
@@ -102,8 +107,4 @@ public class NewGameFragment extends Fragment {
             startActivity(intent);
         });
     }
-
-
-
-
 }

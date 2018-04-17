@@ -10,8 +10,10 @@
     <color name="secondary_text">#8a000000</color>
     <color name="disabled_text">#61000000</color>
     <color name="hint_text">#61000000</color>
-    <color name="white">#FFFFFFFF</color>
 
     <color name="primary_black">#81000000</color>
     <color name="secondary_black">#31000000</color>
+
+    <color name="white_grey">#F5F5F5</color>
+    <color name="white">#FFFFFFFF</color>
 </resources>

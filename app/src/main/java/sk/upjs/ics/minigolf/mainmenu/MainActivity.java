@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
              textColor might be primaryColor
     */
 
+    // https://material.io/guidelines/style/color.html#color-themes
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

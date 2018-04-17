@@ -32,7 +32,9 @@ import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.dataaccess.Contract;
 import sk.upjs.ics.minigolf.dataaccess.DbOpenHelper;
+import sk.upjs.ics.minigolf.mainmenu.MainActivity;
 import sk.upjs.ics.minigolf.models.Game;
+import sk.upjs.ics.minigolf.models.Player;
 
 import static sk.upjs.ics.minigolf.Utils.verifyStoragePermissions;
 import static sk.upjs.ics.minigolf.dataaccess.Constants.ALL_COLUMNS;
@@ -76,19 +78,34 @@ public class GameSummaryActivity extends AppCompatActivity {
     }
 
     public void onEndGameButtonClicked(View view) {
-        ContentValues contentValues = game.toContentValues();
-        /*AsyncQueryHandler queryHandler = new AsyncQueryHandler(getContentResolver()) {
+        ContentValues gameValues = game.toContentValues();
+
+        AsyncQueryHandler gameInsertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
             protected void onInsertComplete(int token, Object cookie, Uri uri) {
-                Log.i("INSERT: ", uri.toString());
-                Toast.makeText(GameSummaryActivity.this, "Note was saved", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(GameSummaryActivity.this, "Game was saved", Toast.LENGTH_SHORT)
+              //          .show();
+                Log.i("INSERTED:", "Game " + uri.getLastPathSegment());
             }
         };
 
-        queryHandler.startInsert(0, NO_COOKIE, Contract.Game.CONTENT_URI, contentValues);*/
-        Uri uri = Contract.Game.CONTENT_URI;
-        Uri uri2 = getContentResolver().insert(uri, contentValues);
-        Cursor c = getContentResolver().query(uri, ALL_COLUMNS, null, null, null);
+        gameInsertHandler.startInsert(0, NO_COOKIE, Contract.Game.CONTENT_URI, gameValues);
+        for (Player player : game.getPlayers()) {
+            AsyncQueryHandler playerInsertHandler = new AsyncQueryHandler(getContentResolver()) {
+                @Override
+                protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                    Log.i("INSERTED:", "Player " + uri.getLastPathSegment());
+                }
+
+
+            };
+
+            ContentValues playerValues = player.toContentValues();
+            playerInsertHandler.startInsert(0, NO_COOKIE, Contract.Player.CONTENT_URI, playerValues);
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void configureTabLayout() {

@@ -4,19 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="7dp"
+        android:gravity="fill_vertical"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:weightSum="10">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:layout_weight="8"
             android:orientation="vertical">
 
             <TextView
@@ -38,15 +42,14 @@
             android:id="@+id/pointSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="148dp"
-            android:textColor="@color/colorPrimary"/>
+            android:layout_weight="2"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
     <View
         style="@style/HorizontalSeparator"
         android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
         android:layout_weight="1" />
 
     <!--
