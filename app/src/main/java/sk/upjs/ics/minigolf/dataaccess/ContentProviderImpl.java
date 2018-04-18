@@ -4,8 +4,12 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.util.Log;
 
 import sk.upjs.ics.minigolf.SelectionBuilder;
 
@@ -16,8 +20,6 @@ import static sk.upjs.ics.minigolf.dataaccess.DbOpenHelper.*;
 public class ContentProviderImpl extends ContentProvider {
 
     // https://github.com/google/iosched/blob/2011/android/src/com/google/android/apps/iosched/provider/ScheduleProvider.java
-
-
     // https://github.com/google/iosched/tree/master/lib/src/main/java/com/google/samples/apps/iosched/provider
 
     private DbOpenHelper mOpenHelper;
@@ -59,7 +61,7 @@ public class ContentProviderImpl extends ContentProvider {
         return null;
     }
 
-    @Override // stlpce, whereClause, whereArgs, sortOrder
+    @Override // cols, whereClause, whereArgs, sortOrder
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
@@ -84,7 +86,7 @@ public class ContentProviderImpl extends ContentProvider {
                 long newId = db.insertOrThrow(GamePlayer.TABLE_NAME, NO_NULL_COLUMN_HACK, values);
                 getContext().getContentResolver().notifyChange(uri, null);
                 return Player.buildPlayerUri(newId);
-            }
+             }
             case PLAYERS: {
                 long newId = db.insertOrThrow(Player.TABLE_NAME, NO_NULL_COLUMN_HACK, values);
                 getContext().getContentResolver().notifyChange(uri, null);
@@ -101,11 +103,49 @@ public class ContentProviderImpl extends ContentProvider {
     }
 
     @Override
+    public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
+        int numInserted;
+        String table = "";
+
+        final int match = mUriMatcher.match(uri);
+
+        switch (match) {
+            case PLAYERS:
+                table = Player.TABLE_NAME;
+                break;
+            case GAMES_ID_PLAYERS:
+                table = GamePlayer.TABLE_NAME;
+                break;
+        }
+
+        SQLiteDatabase sqlDB = mOpenHelper.getWritableDatabase();
+        sqlDB.beginTransaction();
+
+        try {
+            for (ContentValues cv : values) {
+                long newID = sqlDB.insertOrThrow(table, NO_NULL_COLUMN_HACK, cv);
+                if (newID <= 0) {
+                    throw new SQLException("Failed to insert row into " + uri);
+                }
+            }
+
+            sqlDB.setTransactionSuccessful();
+            getContext().getContentResolver().notifyChange(uri, null);
+            numInserted = values.length;
+
+        } finally {
+            sqlDB.endTransaction();
+        }
+
+        return numInserted;
+    }
+
+    @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
         final SelectionBuilder builder = buildSimpleSelection(uri);
         int retVal = builder.where(selection, selectionArgs).delete(db);
-        getContext().getContentResolver().notifyChange(uri, null);
+        getContext().getContentResolver().notifyChange(Game.CONTENT_URI, null); // TODO: notify content uri dynamically
         return retVal;
     }
 
@@ -160,29 +200,25 @@ public class ContentProviderImpl extends ContentProvider {
                 return builder.table(Tables.GAME);
             }
             case GAMES_ID: {
-                final String gameId = Game.getGameId(uri);
+                final String gameId = uri.getLastPathSegment();
                 return builder.table(Tables.GAME_JOIN_PLAYERS)
-                        .where("G." + Game._ID + "=?");
-              /*  return builder.table(Tables.GAME)
-                        .where(Game._ID + "=?", gameId);*/
+                        .where("G." + Game._ID + "=?", gameId);
             }
             case GAMES_ID_PLAYERS: {
-                final String gameId = Game.getGameId(uri);
+                final String gameId = uri.getPathSegments().get(1);
                 return builder.table(Tables.GAME_JOIN_PLAYERS)
-                        .mapToTable(Player._ID, Tables.PLAYER)
-                        .mapToTable(Player.NAME, Tables.PLAYER)
-                        .where("G." + Game._ID + "=?"); // TODO: qualified
+                        .where("game." + Game._ID + "=?", gameId); // TODO: qualified
             }
             case PLAYERS: {
                 return builder.table(Player.TABLE_NAME);
             }
             case PLAYERS_ID: {
-                final String playerId = Player.getPlayerId(uri);
+                final String playerId = uri.getLastPathSegment();
                 return builder.table(Tables.PLAYER)
                         .where(Player._ID + "=?", playerId);
             }
             case PLAYERS_ID_SCORES: {
-                final String playerId = Player.getPlayerId(uri);
+                final String playerId = uri.getLastPathSegment();
                 return builder.table(Tables.SCORE_TO_PLAYER)
                         .mapToTable(PlayerScore._ID, Tables.SCORE_TO_PLAYER)
                         .mapToTable(PlayerScore.SCORE, Tables.SCORE_TO_PLAYER)

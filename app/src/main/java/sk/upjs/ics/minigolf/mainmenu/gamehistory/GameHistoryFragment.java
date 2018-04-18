@@ -55,6 +55,7 @@ public class GameHistoryFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
         //this.adapter.swapCursor(cursor);
+        cursor.setNotificationUri(getContext().getContentResolver(), Contract.Game.CONTENT_URI); // TODO: set notification uri during query
         adapter = new GameCardsRecyclerAdapter(getContext(), cursor);
         gameCardsRecyclerView.setAdapter(adapter);
     }

@@ -1,5 +1,6 @@
 package sk.upjs.ics.minigolf.course.gamesummary;
 
+import android.annotation.SuppressLint;
 import android.content.AsyncQueryHandler;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -80,29 +81,41 @@ public class GameSummaryActivity extends AppCompatActivity {
     public void onEndGameButtonClicked(View view) {
         ContentValues gameValues = game.toContentValues();
 
-        AsyncQueryHandler gameInsertHandler = new AsyncQueryHandler(getContentResolver()) {
+        // I am not sure if this is correct solution of inserting m-n entities using content provider
+        @SuppressLint("HandlerLeak") AsyncQueryHandler gameInsertHandler = new AsyncQueryHandler(getContentResolver()) {
             @Override
             protected void onInsertComplete(int token, Object cookie, Uri uri) {
-              //  Toast.makeText(GameSummaryActivity.this, "Game was saved", Toast.LENGTH_SHORT)
-              //          .show();
                 Log.i("INSERTED:", "Game " + uri.getLastPathSegment());
+                long gameId = Long.parseLong(uri.getLastPathSegment());
+
+                for (Player player : game.getPlayers()) {
+                    AsyncQueryHandler playerInsertHandler = new AsyncQueryHandler(getContentResolver()) {
+                        @Override
+                        protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                            Log.i("INSERTED:", "Player " + uri.getLastPathSegment());
+                            long playerId = Long.parseLong(uri.getLastPathSegment());
+
+                            AsyncQueryHandler playerInsertHandler = new AsyncQueryHandler(getContentResolver()) {
+                                @Override
+                                protected void onInsertComplete(int token, Object cookie, Uri uri) {
+                                    Log.i("INSERTED:", "Player_to_game of " + playerId);
+                                }
+                            };
+
+                            ContentValues values = new ContentValues();
+                            values.put(Contract.GamePlayer.IDGAME, gameId);
+                            values.put(Contract.GamePlayer.IDPLAYER, playerId);
+                            playerInsertHandler.startInsert(0, NO_COOKIE, Contract.Game.buildPlayersUri(gameId), values);
+                        }
+                    };
+
+                    ContentValues playerValues = player.toContentValues();
+                    playerInsertHandler.startInsert(0, NO_COOKIE, Contract.Player.CONTENT_URI, playerValues);
+                }
             }
         };
 
         gameInsertHandler.startInsert(0, NO_COOKIE, Contract.Game.CONTENT_URI, gameValues);
-        for (Player player : game.getPlayers()) {
-            AsyncQueryHandler playerInsertHandler = new AsyncQueryHandler(getContentResolver()) {
-                @Override
-                protected void onInsertComplete(int token, Object cookie, Uri uri) {
-                    Log.i("INSERTED:", "Player " + uri.getLastPathSegment());
-                }
-
-
-            };
-
-            ContentValues playerValues = player.toContentValues();
-            playerInsertHandler.startInsert(0, NO_COOKIE, Contract.Player.CONTENT_URI, playerValues);
-        }
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -149,6 +162,7 @@ public class GameSummaryActivity extends AppCompatActivity {
 
         // Save a file: path for use with ACTION_VIEW intents
         mCurrentPhotoPath =  image.getAbsolutePath();//"file:" +
+        game.setPhotoPath(mCurrentPhotoPath);
         return image;
     }
 
@@ -168,7 +182,7 @@ public class GameSummaryActivity extends AppCompatActivity {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "sk.upjs.ics.minigolf.fileprovider",
                         photoFile);
-                game.setPhotoPath(photoURI.getPath());
+
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
             }

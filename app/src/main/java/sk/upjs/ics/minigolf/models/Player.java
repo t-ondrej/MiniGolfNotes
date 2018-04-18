@@ -74,8 +74,6 @@ public class Player {
 
     // Assumes that cursor is pointing to valid data
     public static Player fromCursor(Cursor cursor) {
-        Player player = null;
-
         long id = cursor.getLong(cursor.getColumnIndex(Contract.Player._ID));
         String name = cursor.getString(cursor.getColumnIndex(Contract.Player.NAME));
         String score = cursor.getString(cursor.getColumnIndex(Contract.Player.SCORES));
@@ -86,7 +84,7 @@ public class Player {
             scores[i] = Integer.parseInt(strScores[i]);
         }
 
-        return player;
+        return new Player(id, name, scores);
     }
 
     public static List<Player> allFromCursor(Cursor cursor) {

@@ -11,9 +11,11 @@
         android:id="@+id/gameCardsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/game_cardview"
         android:background="@color/white_grey"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        tools:listitem="@layout/game_cardview">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

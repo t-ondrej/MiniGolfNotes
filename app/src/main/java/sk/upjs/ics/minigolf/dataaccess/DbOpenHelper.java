@@ -3,6 +3,7 @@ package sk.upjs.ics.minigolf.dataaccess;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DbOpenHelper extends SQLiteOpenHelper {
 
@@ -15,9 +16,9 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         String PLAYER_TO_GAME = "player_to_game";
         String SCORE_TO_PLAYER = "score_to_player";
 
-        String GAME_JOIN_PLAYERS = "game G " +
-                "LEFT JOIN player_to_game PTG on PTG.id_game = g._id " +
-                "LEFT JOIN player P on P._id = PTG.id_player ";
+        String GAME_JOIN_PLAYERS = "game " +
+                "LEFT OUTER JOIN player_to_game on player_to_game.id_game = game._id " +
+                "LEFT OUTER JOIN player on player._id = player_to_game.id_player ";
 
         String SCORE_JOIN_PLAYER = "score S " +
                 "JOIN player P on S.id_player = P._id";
