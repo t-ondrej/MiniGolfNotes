@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,7 +19,7 @@ import sk.upjs.ics.minigolf.models.Game;
 public class RankingFragment extends Fragment {
 
     @BindView(R.id.rankingPlayersRecyclerView) RecyclerView rankingPlayersRecyclerView;
-
+    @BindView(R.id.holeNameTextView) TextView holeNameTextView;
 
     private Parcelable mListState;
     private static final String LIST_STATE_KEY = "testt";
@@ -66,12 +67,13 @@ public class RankingFragment extends Fragment {
 
         Log.i("Created rank fragment:", getArguments().toString());
 
+        holeNameTextView.setText(getHoleName());
+
         RankingAdapter adapter = new RankingAdapter(game, getContext(), position);
         rankingPlayersRecyclerView.setAdapter(adapter);
 
         return view;
     }
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -89,4 +91,9 @@ public class RankingFragment extends Fragment {
             getFragmentManager().beginTransaction().detach(this).attach(this).commit();
         }
     }
+
+    private String getHoleName() {
+        return (position + 1) + ". Jamka";
+    }
+
 }

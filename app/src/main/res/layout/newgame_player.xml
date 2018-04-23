@@ -6,10 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="14dp"
-    android:textCursorDrawable="@drawable/primarycolor_cursor"
     android:cursorVisible="true"
     android:backgroundTint="@color/colorPrimary"
-
     android:inputType="textPersonName"
     android:text="@string/name"
     android:textColor="@color/secondary_text"

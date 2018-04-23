@@ -45,6 +45,8 @@ import static sk.upjs.ics.minigolf.dataaccess.Constants.REQUEST_IMAGE_CAPTURE;
 public class GameSummaryActivity extends AppCompatActivity {
 
     @BindView(R.id.photoLayout) CoordinatorLayout photoLayout;
+    @BindView(R.id.gamesummaryTabLayout) TabLayout gamesummaryTabLayout;
+    @BindView(R.id.gamesummaryPager) ViewPager gamesummaryPager;
 
     private Bitmap mImageBitmap;
     private String mCurrentPhotoPath;
@@ -57,25 +59,56 @@ public class GameSummaryActivity extends AppCompatActivity {
         setContentView(R.layout.gamesummary_activity);
         ButterKnife.bind(this);
 
-        Bundle extras = getIntent().getExtras();
-        game = Game.fromBundle(extras);
+        if (savedInstanceState != null) {
+            game = Game.fromBundle(savedInstanceState);
+        } else {
+            Bundle extras = getIntent().getExtras();
+            game = Game.fromBundle(extras);
+        }
 
         configureTabLayout();
-
-       // Toolbar toolbar = findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
     }
 
-    public void onAddPhotoButtonClick(View view) {
-        Log.i("CLICKED:", "add photo");
+    private void configureTabLayout() {
+        final GamesummaryPagerAdapter adapter = new GamesummaryPagerAdapter
+                (getSupportFragmentManager(), game);
 
-        verifyStoragePermissions(this);
-        dispatchTakePictureIntent();
+        gamesummaryPager.setAdapter(adapter);
+        gamesummaryPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(gamesummaryTabLayout));
+
+        gamesummaryTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                gamesummaryPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        game.toBundle(outState);
+
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         setPic();
+    }
+
+    public void onAddPhotoButtonClick(View view) {
+        verifyStoragePermissions(this);
+        dispatchTakePictureIntent();
     }
 
     public void onEndGameButtonClicked(View view) {
@@ -119,32 +152,6 @@ public class GameSummaryActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
-
-    private void configureTabLayout() {
-        TabLayout tabLayout = findViewById(R.id.gamesummaryTabLayout);
-        final ViewPager viewPager = findViewById(R.id.gamesummaryPager);
-        final GamesummaryPagerAdapter adapter = new GamesummaryPagerAdapter
-                (getSupportFragmentManager(), game);
-
-        viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
     }
 
     private File createImageFile() throws IOException {
@@ -227,5 +234,4 @@ public class GameSummaryActivity extends AppCompatActivity {
         this.photoLayout.removeAllViews();
         this.photoLayout.addView(mImageView);
     }
-
 }

@@ -30,47 +30,15 @@ public class CourseActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         game = Game.fromBundle(extras);
         configureTabLayout();
-      /*  RankingFragment fragment = new RankingFragment();
-        fragment.setArguments(extras);
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.rankingFragmentPlace, fragment)
-                .commit();*/
     }
 
     private void configureTabLayout() {
-        TabLayout tabLayout = findViewById(R.id.holeTabLayout);
         final ViewPager viewPager = findViewById(R.id.holePager);
         final CoursePagerAdapter adapter = new CoursePagerAdapter
                 (getSupportFragmentManager(), game);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         viewPager.setOffscreenPageLimit(1);
 
-        for (int i = 1; i <= game.getHoleCount(); i++) {
-            TabLayout.Tab tab = tabLayout.newTab();
-            tab.setText(i + ". Jamka");
-            tabLayout.addTab(tab);
-        }
-
-
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
     }
 
     public void onCompleteCourseClick(View view) {

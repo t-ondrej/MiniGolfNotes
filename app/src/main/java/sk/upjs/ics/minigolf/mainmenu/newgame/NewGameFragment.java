@@ -54,12 +54,7 @@ public class NewGameFragment extends Fragment {
         View view = inflater.inflate(R.layout.newgame_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        // Now it is set in xml
-        /*LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);*/
-
-        game.addPlayer(new Player("Hráč 1"));
+        game.addPlayer(Player.createWithDefaultName(1, getResources()));
 
         NewGamePlayersRecyclerAdapter adapter = new NewGamePlayersRecyclerAdapter(game, this.getContext());
         recyclerView.setAdapter(adapter);
@@ -71,7 +66,7 @@ public class NewGameFragment extends Fragment {
 
     private void configureButtons(final NewGamePlayersRecyclerAdapter adapter) {
         addPlayerButton.setOnClickListener(v -> {
-            game.addPlayer(new Player("Hráč " + (game.getPlayerCount() + 1)));
+            game.addPlayer(Player.createWithDefaultName(game.getPlayerCount() + 1, getResources()));
             adapter.notifyItemInserted(game.getPlayerCount() - 1);
             adapter.notifyItemRangeChanged(game.getPlayerCount() - 1, game.getPlayerCount());
             Log.i("Number of items: ", Integer.toString(game.getPlayers().size()));

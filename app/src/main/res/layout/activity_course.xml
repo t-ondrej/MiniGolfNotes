@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     tools:context="sk.upjs.ics.minigolf.course.CourseActivity">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/courseToolbar"
         android:layout_width="match_parent"
@@ -16,7 +15,8 @@
         android:background="@color/colorPrimary"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" >
+        android:layout_alignParentStart="true"
+        android:elevation="8dp">
 
         <TextView
             android:textSize="@dimen/material_text_headline"
@@ -38,44 +38,20 @@
 
     </android.support.v7.widget.Toolbar>
 
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/holeTabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        app:tabMode="scrollable"
-        app:tabTextColor="@color/secondary_black"
-        app:tabSelectedTextColor="@color/primary_black"
-        />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/holePager"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/margin">
 
+        <com.itsronald.widget.ViewPagerIndicator
+            android:id="@+id/view_pager_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="center_vertical"
+            app:selectedDotColor="@color/colorPrimary"
+            app:unselectedDotColor="@color/primary_black"/>
 
-
-    <!--
-     <LinearLayout
-        android:id="@+id/rankingFragmentPlace"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    </LinearLayout>
-
-     <include
-          layout="@layout/course_player_fragment"/>
-       <fragment
-          android:id="@+id/rankingFragment"
-          android:name="sk.upjs.ics.minigolf.course.RankingFragment"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content" /> -->
-
-    <!--android:theme="?attr/actionBarTheme"
-           android:minHeight="?attr/actionBarSize" -->
+    </android.support.v4.view.ViewPager>
 </LinearLayout>

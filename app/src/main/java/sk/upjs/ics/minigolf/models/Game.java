@@ -60,8 +60,8 @@ public class Game implements PlayerManager {
     /**
      * Bundles
      */
-    public Bundle toBundle() {
-        Bundle bundle = new Bundle();
+    // Called during onSaveInstanceState
+    public Bundle toBundle(Bundle bundle) {
         bundle.putLong("id", id);
         bundle.putInt("hitCountMax", hitCountMax);
         bundle.putInt("holeCount", holeCount);
@@ -74,6 +74,13 @@ public class Game implements PlayerManager {
             bundle.putBundle("Player " + i, players.get(i).toBundle());
         }
 
+        return bundle;
+    }
+
+    // Called when passing state to another activity
+    public Bundle toBundle() {
+        Bundle bundle = new Bundle();
+        toBundle(bundle);
         return bundle;
     }
 

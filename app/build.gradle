@@ -5,7 +5,7 @@ android {
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "sk.upjs.ics.minigolf"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -44,11 +44,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
 
-    compile 'biz.kasual:materialnumberpicker:1.2.1'
-    compile 'com.h6ah4i.android.widget:numberpickercompat:0.1.0'
-    compile 'com.shawnlin:number-picker:2.4.6'
-
     // graphs
     compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
     compile 'com.nineoldandroids:library:2.4.0'
+
+    compile 'com.github.ronaldsmartin:Material-ViewPagerIndicator:1.0.4'
+    compile 'com.github.vajro:MaterialDesignLibrary:1.6'
 }
