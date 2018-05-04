@@ -20,12 +20,10 @@ import sk.upjs.ics.minigolf.models.Player;
 
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPlayerViewHolder> {
 
-    // TODO: dont pass game but only player
     class RankedPlayerViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.playerNameTextView)  TextView nameTextView;
         @BindView(R.id.playerScoreTextView) TextView scoreEditText;
         @BindView(R.id.pointSpinner)        Spinner pointSpinner;
-        //@BindView(R.id.rankImageView)       ImageView standingImageView;
 
         RankedPlayerViewHolder(View itemView) {
             super(itemView);

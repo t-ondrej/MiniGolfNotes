@@ -4,8 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.AsyncQueryHandler;
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -21,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,26 +29,22 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
+import sk.upjs.ics.minigolf.Utils;
 import sk.upjs.ics.minigolf.dataaccess.Contract;
-import sk.upjs.ics.minigolf.dataaccess.DbOpenHelper;
 import sk.upjs.ics.minigolf.mainmenu.MainActivity;
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
 
 import static sk.upjs.ics.minigolf.Utils.verifyStoragePermissions;
-import static sk.upjs.ics.minigolf.dataaccess.Constants.ALL_COLUMNS;
 import static sk.upjs.ics.minigolf.dataaccess.Constants.NO_COOKIE;
 import static sk.upjs.ics.minigolf.dataaccess.Constants.REQUEST_IMAGE_CAPTURE;
 
 public class GameSummaryActivity extends AppCompatActivity {
 
-    @BindView(R.id.photoLayout) CoordinatorLayout photoLayout;
-    @BindView(R.id.gamesummaryTabLayout) TabLayout gamesummaryTabLayout;
-    @BindView(R.id.gamesummaryPager) ViewPager gamesummaryPager;
+    @BindView(R.id.photoLayout)             CoordinatorLayout photoLayout;
+    @BindView(R.id.gamesummaryTabLayout)    TabLayout gamesummaryTabLayout;
+    @BindView(R.id.gamesummaryPager)        ViewPager gamesummaryPager;
 
-    private Bitmap mImageBitmap;
-    private String mCurrentPhotoPath;
-    private ImageView mImageView;
     private Game game;
 
     @Override
@@ -66,31 +60,20 @@ public class GameSummaryActivity extends AppCompatActivity {
             game = Game.fromBundle(extras);
         }
 
+        if (game.getPhotoPath() != null) {
+            setPic();
+        }
+
         configureTabLayout();
     }
 
     private void configureTabLayout() {
-        final GamesummaryPagerAdapter adapter = new GamesummaryPagerAdapter
+        GamesummaryPagerAdapter adapter = new GamesummaryPagerAdapter
                 (getSupportFragmentManager(), game);
 
         gamesummaryPager.setAdapter(adapter);
         gamesummaryPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(gamesummaryTabLayout));
-
-        gamesummaryTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                gamesummaryPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
+        gamesummaryTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(gamesummaryPager));
     }
 
     @Override
@@ -154,25 +137,6 @@ public class GameSummaryActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(
-                imageFileName,  // prefix
-                ".jpg",         // suffix
-                storageDir      // directory
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath =  image.getAbsolutePath();//"file:" +
-        game.setPhotoPath(mCurrentPhotoPath);
-        return image;
-    }
-
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -180,7 +144,8 @@ public class GameSummaryActivity extends AppCompatActivity {
             // Create the File where the photo should go
             File photoFile = null;
             try {
-                photoFile = createImageFile();
+                photoFile = Utils.createImageFile();
+                game.setPhotoPath(photoFile.getAbsolutePath());
             } catch (IOException ex) {
                 // Error occurred while creating the File
             }
@@ -198,19 +163,22 @@ public class GameSummaryActivity extends AppCompatActivity {
 
     // TODO: add imageview
     private void setPic() {
-        mImageView = new ImageView(this);
-        mImageView.setLayoutParams(new Toolbar.LayoutParams(photoLayout.getWidth(), 320));
+        ImageView mImageView = new ImageView(this);
+        int width = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
+                ? 1440
+                : 720;
+        mImageView.setLayoutParams(new Toolbar.LayoutParams(width, 320));
         mImageView.setFitsSystemWindows(true);
         mImageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         // Get the dimensions of the View
-        int targetW = photoLayout.getWidth();
+        int targetW = width;
         int targetH = 320;
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        BitmapFactory.decodeFile(game.getPhotoPath(), bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
@@ -222,7 +190,7 @@ public class GameSummaryActivity extends AppCompatActivity {
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Bitmap bitmap = BitmapFactory.decodeFile(game.getPhotoPath(), bmOptions);
 
         int srcWidth = bitmap.getWidth();
         int srcHeight = bitmap.getHeight();

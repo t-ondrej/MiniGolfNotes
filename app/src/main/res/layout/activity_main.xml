@@ -14,13 +14,13 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_primary"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:elevation="10dp"
         app:tabTextColor="@color/secondary_black"
-        app:tabSelectedTextColor="@color/primary_black"
+        app:tabSelectedTextColor="@color/white_grey"
         >
 
         <android.support.design.widget.TabItem

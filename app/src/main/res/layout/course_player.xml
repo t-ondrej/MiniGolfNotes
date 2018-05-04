@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:text="Hráč 1"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/color_primary"
                 android:textSize="@dimen/material_text_body1" />
 
             <TextView
@@ -43,11 +43,11 @@
             android:id="@+id/pointSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_alignParentRight="true"
             android:spinnerMode="dialog"
-            android:prompt="@string/statistics"
+            android:prompt="@string/hit_count"
             android:gravity="center"
+            android:layout_marginTop="-14dp"
             />
 
     </RelativeLayout>
@@ -57,17 +57,8 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="-8dp"
         android:layout_below="@id/playerInfoRelativeLayout"/>
-
-    <!--
-    <ImageView
-            android:id="@+id/rankImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="12dp"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
-    -->
 
 </RelativeLayout>
 

@@ -14,15 +14,10 @@ public class PlayerTableFragment extends Fragment {
 
     private Game game;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public PlayerTableFragment() {
+        // Placeholder
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static PlayerTableFragment newInstance(Game game) {
         PlayerTableFragment fragment = new PlayerTableFragment();
         Bundle args = game.toBundle();
@@ -34,24 +29,30 @@ public class PlayerTableFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            game = Game.fromBundle(bundle);
+        if (savedInstanceState != null) {
+            game = Game.fromBundle(savedInstanceState);
+        } else {
+            game = Game.fromBundle(getArguments());
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_player_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             RecyclerView recyclerView = (RecyclerView) view;
-
             recyclerView.setAdapter(new PlayerTableRecyclerViewAdapter(game));
         }
         return view;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        game.toBundle(outState);
+
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
+    }
 }

@@ -2,6 +2,7 @@ package sk.upjs.ics.minigolf.models;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.location.Address;
 import android.location.Geocoder;
@@ -55,6 +56,12 @@ public class Game implements PlayerManager {
                 double latitude, String photoPath, List<Player> players) {
         this(id, hitCountMax, holeCount, timestamp, longitude, latitude, photoPath);
         this.players = players;
+    }
+
+    public static Game createFreshGame(Resources resources) {
+        Game game = new Game();
+        game.addPlayer(Player.createWithDefaultName(1, resources));
+        return game;
     }
 
     /**

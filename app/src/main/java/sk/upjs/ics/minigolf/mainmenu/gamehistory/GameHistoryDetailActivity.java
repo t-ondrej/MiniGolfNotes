@@ -29,8 +29,8 @@ public class GameHistoryDetailActivity extends AppCompatActivity implements Load
     @BindView(R.id.playerRankingsRecyclerView)  RecyclerView rankingPlayersRecyclerView;
     @BindView(R.id.averageScoreBarChart)        BarChart averageScoreBarChart;
 
-    private static final int GAME_WITH_PLAYERS_LOADER_ID = 1;
-    private static final String GAME_ID = "gameId";
+    private static int GAME_WITH_PLAYERS_LOADER_ID = 1;
+    public static final String GAME_ID = "game_id";
     private long gameId;
     private Game game;
 
@@ -42,23 +42,17 @@ public class GameHistoryDetailActivity extends AppCompatActivity implements Load
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gamehistory_detail_activity);
-
-        if (getIntent().getExtras() != null)
-            gameId = getIntent().getExtras().getLong(GAME_ID);
-
         ButterKnife.bind(this);
-        getLoaderManager().initLoader(GAME_WITH_PLAYERS_LOADER_ID, Bundle.EMPTY, this);
+
+        if (savedInstanceState != null) {
+            gameId = savedInstanceState.getLong(GAME_ID);
+        } else {
+            gameId = getIntent().getExtras().getLong(GAME_ID);
+        }
+
+        // Add beause next time it will return old loader which will be closed
+        getLoaderManager().initLoader(GAME_WITH_PLAYERS_LOADER_ID++, Bundle.EMPTY, this);
     }
-
-    private void initAverageScoreBarChart() {
-        float[] averageScores = game.getAverageScoresAtHoles();
-
-        for (int i = 0; i < averageScores.length; i++)
-            averageScoreBarChart.addBar(new BarModel(averageScores[i], 0xFFB9CC66)); // 0xFF63CBB0
-
-        averageScoreBarChart.startAnimation();
-    }
-
 
     @NonNull
     @Override
@@ -83,5 +77,22 @@ public class GameHistoryDetailActivity extends AppCompatActivity implements Load
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
         // Placeholder
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putLong(GAME_ID, gameId);
+
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
+    }
+
+    private void initAverageScoreBarChart() {
+        float[] averageScores = game.getAverageScoresAtHoles();
+
+        for (int i = 0; i < averageScores.length; i++)
+            averageScoreBarChart.addBar(new BarModel(averageScores[i], 0xFFB9CC66)); // 0xFF63CBB0
+
+        averageScoreBarChart.startAnimation();
     }
 }

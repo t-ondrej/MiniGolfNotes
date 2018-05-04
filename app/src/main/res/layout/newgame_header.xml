@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="@string/settings"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/color_primary" />
 
         <TextView
             android:id="@+id/textView5"
@@ -83,6 +83,6 @@
         android:layout_marginTop="@dimen/margin"
         android:text="@string/players"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/color_primary" />
 
 </LinearLayout>

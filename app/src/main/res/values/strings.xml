@@ -15,9 +15,14 @@
     <string name="table">Tabuľka</string>
     <string name="statistics">Štatistiky</string>
     <string name="no_adress">Žiadna adresa</string>
+    <string name="summary">Zhrnutie</string>
+    <string name="average_hit_at_hole">Priemerné skóre</string>
+    <string name="game_detail">Detail hry</string>
+    <string name="end_game_question">Ukončiť hru?</string>
+    <string name="yes">Áno</string>
+    <string name="no">Nie</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_game_summary">GameSummaryActivity</string>
     <string name="title_activity_game_history_detail">GameHistoryDetailActivity</string>
 </resources>

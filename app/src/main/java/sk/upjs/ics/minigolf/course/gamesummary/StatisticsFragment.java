@@ -17,8 +17,8 @@ import sk.upjs.ics.minigolf.models.Game;
 public class StatisticsFragment extends Fragment {
 
     @BindView(R.id.averageScoreBarChart) BarChart averageScoreBarChart;
-    private Game game;
 
+    private Game game;
 
     public StatisticsFragment() {
         // Required empty public constructor
@@ -34,9 +34,11 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            game = Game.fromBundle(args);
+
+        if (savedInstanceState != null) {
+            game = Game.fromBundle(savedInstanceState);
+        } else {
+            game = Game.fromBundle(getArguments());
         }
     }
 
@@ -45,11 +47,17 @@ public class StatisticsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
         ButterKnife.bind(this, view);
-        // Inflate the layout for this fragment
 
         initAverageScoreBarChart();
-
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        game.toBundle(outState);
+
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
     }
 
     private void initAverageScoreBarChart() {
@@ -61,37 +69,4 @@ public class StatisticsFragment extends Fragment {
 
         averageScoreBarChart.startAnimation();
     }
-
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-   /* public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }*/
 }

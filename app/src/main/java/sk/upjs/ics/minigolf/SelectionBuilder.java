@@ -15,6 +15,8 @@ import java.util.Map;
  * Helper for building selection clauses for {@link SQLiteDatabase}. Each
  * appended clause is combined using {@code AND}. This class is <em>not</em>
  * thread safe.
+ *
+ * Source: https://github.com/google/iosched/blob/e4364eec0d8f358215aee30cce2b4836ec169b5a/lib/src/main/java/com/google/samples/apps/iosched/util/SelectionBuilder.java
  */
 public class SelectionBuilder {
     private static final String TAG = "SelectionBuilder";

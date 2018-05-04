@@ -29,6 +29,10 @@ public class GameHistoryFragment extends Fragment implements LoaderManager.Loade
     private static final int GAMES_LOADER_ID = 0;
     private GameCardsRecyclerAdapter adapter;
 
+    public static GameHistoryFragment createNewInstance() {
+        return new GameHistoryFragment();
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +58,6 @@ public class GameHistoryFragment extends Fragment implements LoaderManager.Loade
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
-        //this.adapter.swapCursor(cursor);
         cursor.setNotificationUri(getContext().getContentResolver(), Contract.Game.CONTENT_URI); // TODO: set notification uri during query
         adapter = new GameCardsRecyclerAdapter(getContext(), cursor);
         gameCardsRecyclerView.setAdapter(adapter);

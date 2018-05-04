@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,25 +17,22 @@ import sk.upjs.ics.minigolf.models.Game;
 
 public class RankingFragment extends Fragment {
 
-    @BindView(R.id.rankingPlayersRecyclerView) RecyclerView rankingPlayersRecyclerView;
-    @BindView(R.id.holeNameTextView) TextView holeNameTextView;
-
-    private Parcelable mListState;
-    private static final String LIST_STATE_KEY = "testt";
+    @BindView(R.id.rankingPlayersRecyclerView)  RecyclerView rankingPlayersRecyclerView;
+    @BindView(R.id.holeNameTextView)            TextView holeNameTextView;
 
     private Game game;
-    private int position;
-    private static final String ARG_POSITION = "position";
+    private int holeIdx;
+    private static final String ARG_HOLE_INDEX = "hole_index";
+    private static final String LIST_STATE_KEY = "list_state";
 
     public RankingFragment() {
+        // Placeholder
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static RankingFragment newInstance(Game game, int position) {
         RankingFragment fragment = new RankingFragment();
         Bundle bundle = game.toBundle();
-        bundle.putInt(ARG_POSITION, position);
+        bundle.putInt(ARG_HOLE_INDEX, position);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -46,11 +42,13 @@ public class RankingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle arguments = getArguments();
-
-        if (arguments != null) {
-            position = getArguments().getInt(ARG_POSITION);
-            game = Game.fromBundle(getArguments());
+        if (savedInstanceState != null) {
+            game = Game.fromBundle(savedInstanceState);
+            holeIdx = savedInstanceState.getInt(ARG_HOLE_INDEX);
+        } else {
+            Bundle arguments = getArguments();
+            holeIdx = arguments.getInt(ARG_HOLE_INDEX);
+            game = Game.fromBundle(arguments);
         }
     }
 
@@ -65,11 +63,8 @@ public class RankingFragment extends Fragment {
             rankingPlayersRecyclerView.getLayoutManager().onRestoreInstanceState(recyclerViewState);//restore
         }
 
-        Log.i("Created rank fragment:", getArguments().toString());
-
         holeNameTextView.setText(getHoleName());
-
-        RankingAdapter adapter = new RankingAdapter(game, getContext(), position);
+        RankingAdapter adapter = new RankingAdapter(game, getContext(), holeIdx);
         rankingPlayersRecyclerView.setAdapter(adapter);
 
         return view;
@@ -78,8 +73,9 @@ public class RankingFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        mListState = rankingPlayersRecyclerView.getLayoutManager().onSaveInstanceState();
+        game.toBundle(outState);
+        outState.putInt(ARG_HOLE_INDEX, holeIdx);
+        Parcelable mListState = rankingPlayersRecyclerView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(LIST_STATE_KEY, mListState);
     }
 
@@ -93,7 +89,7 @@ public class RankingFragment extends Fragment {
     }
 
     private String getHoleName() {
-        return (position + 1) + ". Jamka";
+        return (holeIdx + 1) + ". Jamka";
     }
 
 }

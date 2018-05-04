@@ -34,8 +34,8 @@
             android:layout_weight="1"
             android:clickable="true"
             android:onClick="onAddPhotoButtonClick"
-            app:backgroundTint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_add_black_24dp"
+            app:backgroundTint="@color/color_primary"
+            app:srcCompat="@drawable/ic_add_white_24dp"
             android:layout_margin="16dp"/>
     </android.support.design.widget.CoordinatorLayout>
 
@@ -43,9 +43,9 @@
         android:id="@+id/gamesummaryTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:backgroundTint="@color/colorAccent"
-        app:tabIndicatorColor="@color/colorPrimary"
+        android:background="@color/color_primary"
+        android:backgroundTint="@color/color_accent"
+        app:tabIndicatorColor="@color/color_primary"
         app:tabTextColor="@color/secondary_black"
         app:tabSelectedTextColor="@color/primary_black">
 

@@ -12,18 +12,18 @@
         android:id="@+id/courseToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/color_primary"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:elevation="8dp">
 
         <TextView
-            android:textSize="@dimen/material_text_headline"
+            android:textSize="@dimen/material_text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Hra"
-            android:textColor="@color/primary_black"/>
+            android:textColor="@color/white_grey"/>
 
         <ImageView
             android:id="@+id/courseCompleteImageView"
@@ -34,7 +34,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="right"
             android:layout_marginRight="16dp"
-            app:srcCompat="@drawable/ic_check_black_24dp" />
+            app:srcCompat="@drawable/ic_check_white_24dp" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
             android:gravity="center_vertical"
-            app:selectedDotColor="@color/colorPrimary"
+            app:selectedDotColor="@color/color_primary"
             app:unselectedDotColor="@color/primary_black"/>
 
     </android.support.v4.view.ViewPager>

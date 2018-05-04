@@ -28,11 +28,11 @@ import sk.upjs.ics.minigolf.models.Game;
 public class GameCardsRecyclerAdapter extends CursorRecyclerViewAdapter<GameCardsRecyclerAdapter.GameCardViewHolder> {
 
     class GameCardViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.gamePhotoImageView) ImageView gamePhotoImageView;
-        @BindView(R.id.addressTextView) TextView adressTextView;
-        @BindView(R.id.dateTextView) TextView dateTextView;
+        @BindView(R.id.gamePhotoImageView)  ImageView gamePhotoImageView;
+        @BindView(R.id.addressTextView)     TextView adressTextView;
+        @BindView(R.id.dateTextView)        TextView dateTextView;
         @BindView(R.id.deleteGameImageView) ImageView deleteGameImageView;
-        @BindView(R.id.gameCardView) CardView gameCardView;
+        @BindView(R.id.gameCardView)        CardView gameCardView;
 
         Game game;
 
@@ -45,20 +45,16 @@ public class GameCardsRecyclerAdapter extends CursorRecyclerViewAdapter<GameCard
         public void onGameCardViewCliced(View view) {
             // open detail
             Intent intent = new Intent(context, GameHistoryDetailActivity.class);
-            intent = intent.putExtra("gameId", game.getId());
+            intent = intent.putExtra(GameHistoryDetailActivity.GAME_ID, game.getId());
             context.startActivity(intent);
         }
 
-        // TODO: it is deleting only game not players also
         @OnClick(R.id.deleteGameImageView)
         public void onDeleteGameImageViewClicked(View view) {
-            // delete game
             AsyncQueryHandler gameDeleteHandler = new AsyncQueryHandler(context.getContentResolver()) {
                 @Override
                 protected void onDeleteComplete(int token, Object cookie, int result) {
                     super.onDeleteComplete(token, cookie, result);
-
-                    Log.i("DELETED", "GAME");
                     GameCardsRecyclerAdapter.this.notifyDataSetChanged();
                 }
             };
@@ -91,24 +87,23 @@ public class GameCardsRecyclerAdapter extends CursorRecyclerViewAdapter<GameCard
 
         if (game.getPhotoPath() != null) {
             // Get the dimensions of the View
-            int targetW = 300;//holder.gamePhotoImageView.getWidth();//getLayoutParams().width;
-            int targetH = 300;//holder.gamePhotoImageView.getHeight();
+            int targetW = 700;
+            int targetH = 700;
 
             // Get the dimensions of the bitmap
             BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             bmOptions.inJustDecodeBounds = true;
             BitmapFactory.decodeFile(game.getPhotoPath(), bmOptions);
+
             int photoW = bmOptions.outWidth;
             int photoH = bmOptions.outHeight;
 
             // Determine how much to scale down the image
             int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
             // Decode the image file into a Bitmap sized to fill the View
             bmOptions.inJustDecodeBounds = false;
             bmOptions.inSampleSize = scaleFactor;
             bmOptions.inPurgeable = true;
-
             Bitmap bitmap = BitmapFactory.decodeFile(game.getPhotoPath(), bmOptions);
 
             int srcWidth = bitmap.getWidth();

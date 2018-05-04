@@ -11,23 +11,23 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    /* TODO: change buttons margin, add toolbar, add spinners instead of number textbox
-             white plus image to FAB, add appbar to the main activity, change text color from black to white
-             textColor might be primaryColor
-    */
-
-    // https://material.io/guidelines/style/color.html#color-themes
+    @BindView(R.id.tabLayout)    TabLayout tabLayout;
+    @BindView(R.id.pager)        ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        configureTabLayout();
+        if (savedInstanceState == null)
+            configureTabLayout();
     }
 
     @Override
@@ -44,32 +44,16 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
         return super.dispatchTouchEvent( event );
     }
 
     private void configureTabLayout() {
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        final ViewPager viewPager = findViewById(R.id.pager);
-        final HomescreenPagerAdapter adapter = new HomescreenPagerAdapter
+        HomescreenPagerAdapter adapter = new HomescreenPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
     }
 }

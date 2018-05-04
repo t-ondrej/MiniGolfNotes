@@ -34,10 +34,7 @@ public class NewGamePlayersRecyclerAdapter extends RecyclerView.Adapter<NewGameP
 
         private void addClearButtonClickHandler() {
             playerNameEditText.setOnTouchListener((v, event) -> {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
                 final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
 
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (playerNameEditText.getRight() - playerNameEditText.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
@@ -50,7 +47,7 @@ public class NewGamePlayersRecyclerAdapter extends RecyclerView.Adapter<NewGameP
             });
         }
 
-        public void bindEditText(Player player) {
+        void bindEditText(Player player) {
             playerNameEditText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -88,8 +85,6 @@ public class NewGamePlayersRecyclerAdapter extends RecyclerView.Adapter<NewGameP
         View otherItemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.newgame_player, parent, false);
         PlayerViewHolder other = new PlayerViewHolder(otherItemView);
-
-        Resources res = context.getResources();
 
         return other;
     }

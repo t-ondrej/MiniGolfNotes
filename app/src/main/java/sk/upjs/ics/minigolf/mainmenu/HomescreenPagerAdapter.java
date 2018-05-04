@@ -20,13 +20,12 @@ public class HomescreenPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new NewGameFragment();
+                return NewGameFragment.createNewInstance();
             case 1:
-                return new GameHistoryFragment();
+                return GameHistoryFragment.createNewInstance();
             default:
                 return null;
         }
-
     }
 
     @Override

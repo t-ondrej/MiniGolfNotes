@@ -24,10 +24,6 @@ public class DbOpenHelper extends SQLiteOpenHelper {
                 "JOIN player P on S.id_player = P._id";
     }
 
-    interface Qualified {
-        String GAMES_GAME_ID = Tables.GAME + "." + Contract.Game._ID;
-    }
-
     public DbOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

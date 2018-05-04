@@ -16,7 +16,6 @@
         android:text="Jamka"
         android:layout_gravity="center|top"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="16dp"
         android:textSize="@dimen/material_text_subhead"/>
 
     <android.support.v7.widget.RecyclerView

@@ -17,10 +17,10 @@ import static sk.upjs.ics.minigolf.dataaccess.Constants.*;
 import static sk.upjs.ics.minigolf.dataaccess.Contract.*;
 import static sk.upjs.ics.minigolf.dataaccess.DbOpenHelper.*;
 
+/**
+ * Source: https://github.com/google/iosched/tree/master/lib/src/main/java/com/google/samples/apps/iosched/provider
+ */
 public class ContentProviderImpl extends ContentProvider {
-
-    // https://github.com/google/iosched/blob/2011/android/src/com/google/android/apps/iosched/provider/ScheduleProvider.java
-    // https://github.com/google/iosched/tree/master/lib/src/main/java/com/google/samples/apps/iosched/provider
 
     private DbOpenHelper mOpenHelper;
     private UriMatcher mUriMatcher;
@@ -61,7 +61,7 @@ public class ContentProviderImpl extends ContentProvider {
         return null;
     }
 
-    @Override // cols, whereClause, whereArgs, sortOrder
+    @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
