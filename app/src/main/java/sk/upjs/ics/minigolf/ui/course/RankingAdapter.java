@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,8 +22,7 @@ import sk.upjs.ics.minigolf.models.Player;
 public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPlayerViewHolder> {
 
     class RankedPlayerViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.playerNameTextView)  TextView nameTextView;
-        @BindView(R.id.playerScoreTextView) TextView scoreEditText;
+        @BindView(R.id.playerNameEditText)  EditText playerName;
         @BindView(R.id.pointSpinner)        Spinner pointSpinner;
 
         RankedPlayerViewHolder(View itemView) {
@@ -30,9 +30,9 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPl
             ButterKnife.bind(this, itemView);
 
             ArrayAdapter<Integer> integerArrayAdapter = new ArrayAdapter<>(RankingAdapter.this.context,
-                    android.R.layout.simple_spinner_dropdown_item,
+                    R.layout.spinner_item_main,
                     game.getPossibleScores());
-            integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            integerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
             pointSpinner.setAdapter(integerArrayAdapter);
 
             pointSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -41,7 +41,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPl
                     Log.i("PointSpinner", "Setting score at: " + holeIdx + " to");
                     Player player = game.findPlayerByPosition(getAdapterPosition());
                     player.setScoreAtHole(holeIdx, (int)pointSpinner.getItemAtPosition(position));
-                    scoreEditText.setText(player.getScoreString());
+                    playerName.setText(player.getNameWithScore());
                 }
 
                 @Override
@@ -74,8 +74,7 @@ public class RankingAdapter extends RecyclerView.Adapter<RankingAdapter.RankedPl
     @Override
     public void onBindViewHolder(RankingAdapter.RankedPlayerViewHolder holder, int position) {
             Player player = game.findPlayerByPosition(position);
-            holder.scoreEditText.setText(player.getScoreString());
-            holder.nameTextView.setText(player.getName());
+            holder.playerName.setText(player.getNameWithScore());
             holder.pointSpinner.setSelection(player.getScoreAtHole(holeIdx));
     }
 

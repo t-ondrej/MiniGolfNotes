@@ -123,6 +123,10 @@ public class Player {
         this.name = name;
     }
 
+    public String getNameWithScore() {
+        return getName() + " " + getScoreString();
+    }
+
     public int getScore() {
         int totalScore = 0;
 
