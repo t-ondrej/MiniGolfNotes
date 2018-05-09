@@ -35,8 +35,8 @@ public class NewGameFragment extends Fragment {
     @BindView(R.id.addPlayerFloatingActionButton)   FloatingActionButton addPlayerButton;
     @BindView(R.id.startGameImageButton)            ImageButton startGameImageButton;
     @BindView(R.id.saveLocationSwitch)              Switch saveLocationSwitch;
-    @BindView(R.id.hitCountEditText)                   EditText hitCountField;
-    @BindView(R.id.holesCountField)                 EditText holesCountField;
+    @BindView(R.id.hitCountEditText)                EditText hitCountField;
+    @BindView(R.id.holeCountEditText)               EditText holesCountField;
 
     private NewGamePlayersRecyclerAdapter newGamePlayersRecyclerAdapter;
     private Game game;

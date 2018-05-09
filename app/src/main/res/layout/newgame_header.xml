@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:paddingTop="@dimen/margin">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/headerWrapper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:paddingLeft="@dimen/margin"
         android:paddingRight="@dimen/margin">
 
+        <ImageView
+            android:id="@+id/settingsImageViewIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_settings_primarycolor_16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="3dp"/>
+
         <TextView
+            android:id="@+id/settingsTextView"
             style="@style/textViewSubhead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/settings"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/color_primary" />
+            android:textColor="@color/color_primary"
+            android:layout_toEndOf="@+id/settingsImageViewIcon"/>
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/hitCountTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_below="@+id/settingsTextView"
             android:text="@string/hit_count"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/secondary_text" />
 
         <EditText
-            android:id="@+id/hitCountField"
+            android:id="@+id/hitCountEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/hitCountTextView"
             android:background="@null"
             android:ems="10"
             android:inputType="number"
@@ -40,19 +52,21 @@
             android:textColor="@color/primary_text" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/holeCountTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/hitCountEditText"
             android:layout_marginTop="16dp"
             android:text="@string/hole_count"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/secondary_text" />
 
         <EditText
-            android:id="@+id/holesCountField"
+            android:id="@+id/holeCountEditText"
             style="@style/Widget.AppCompat.EditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/holeCountTextView"
             android:background="@null"
             android:ems="10"
             android:inputType="number"
@@ -65,24 +79,39 @@
             android:id="@+id/saveLocationSwitch"
             style="@style/switchStyle"
             android:layout_width="match_parent"
+            android:layout_below="@id/holeCountEditText"
             android:text="@string/save_location"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@color/secondary_text" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
+        android:id="@+id/horizontalSeparator"
         style="@style/HorizontalSeparator"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/headerWrapper"/>
+
+    <ImageView
+        android:id="@+id/playersImageViewIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/horizontalSeparator"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="19dp"
+        android:src="@drawable/ic_people_primarycolor_16dp"/>
 
     <TextView
+        android:id="@+id/playersTextView"
         style="@style/textViewSubhead"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin"
+        android:layout_below="@+id/horizontalSeparator"
+        android:layout_toEndOf="@+id/playersImageViewIcon"
         android:layout_marginTop="@dimen/margin"
         android:text="@string/players"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/color_primary" />
 
-</LinearLayout>
+</RelativeLayout>
