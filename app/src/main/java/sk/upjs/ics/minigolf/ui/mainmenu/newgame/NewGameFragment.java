@@ -1,19 +1,15 @@
-package sk.upjs.ics.minigolf.mainmenu.newgame;
+package sk.upjs.ics.minigolf.ui.mainmenu.newgame;
 
 import android.Manifest;
-import android.content.AsyncQueryHandler;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sk.upjs.ics.minigolf.R;
-import sk.upjs.ics.minigolf.course.CourseActivity;
-import sk.upjs.ics.minigolf.dataaccess.Contract;
+
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
+import sk.upjs.ics.minigolf.ui.course.CourseActivity;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static sk.upjs.ics.minigolf.Utils.verifyLocationPermissions;
@@ -39,7 +35,7 @@ public class NewGameFragment extends Fragment {
     @BindView(R.id.addPlayerFloatingActionButton)   FloatingActionButton addPlayerButton;
     @BindView(R.id.startGameImageButton)            ImageButton startGameImageButton;
     @BindView(R.id.saveLocationSwitch)              Switch saveLocationSwitch;
-    @BindView(R.id.hitCountField)                   EditText hitCountField;
+    @BindView(R.id.hitCountEditText)                   EditText hitCountField;
     @BindView(R.id.holesCountField)                 EditText holesCountField;
 
     private NewGamePlayersRecyclerAdapter newGamePlayersRecyclerAdapter;

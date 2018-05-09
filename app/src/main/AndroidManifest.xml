@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".mainmenu.MainActivity"
+            android:name=".ui.mainmenu.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".course.CourseActivity" />
+        <activity android:name=".ui.course.CourseActivity" />
         <activity
-            android:name=".course.gamesummary.GameSummaryActivity"
+            android:name=".ui.course.gamesummary.GameSummaryActivity"
             android:label="@string/title_activity_game_summary"
             android:theme="@style/AppTheme" />
 
@@ -47,7 +47,7 @@
         </provider>
 
         <activity
-            android:name=".mainmenu.gamehistory.GameHistoryDetailActivity"
+            android:name=".ui.mainmenu.gamehistory.GameHistoryDetailActivity"
             android:label="@string/title_activity_game_history_detail"
             android:theme="@style/AppTheme"></activity>
     </application>

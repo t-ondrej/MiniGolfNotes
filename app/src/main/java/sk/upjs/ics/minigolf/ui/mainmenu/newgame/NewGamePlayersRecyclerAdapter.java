@@ -1,7 +1,6 @@
-package sk.upjs.ics.minigolf.mainmenu.newgame;
+package sk.upjs.ics.minigolf.ui.mainmenu.newgame;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;

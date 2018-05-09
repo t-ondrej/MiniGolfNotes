@@ -1,4 +1,4 @@
-package sk.upjs.ics.minigolf.mainmenu;
+package sk.upjs.ics.minigolf.ui.mainmenu;
 
 import android.content.Context;
 import android.graphics.Rect;

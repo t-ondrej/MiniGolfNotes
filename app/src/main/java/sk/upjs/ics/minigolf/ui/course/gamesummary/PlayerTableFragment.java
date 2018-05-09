@@ -1,4 +1,4 @@
-package sk.upjs.ics.minigolf.course.gamesummary;
+package sk.upjs.ics.minigolf.ui.course.gamesummary;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

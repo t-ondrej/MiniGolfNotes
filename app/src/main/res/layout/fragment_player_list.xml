@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/playerRankingsRecyclerView"
-    android:name="sk.upjs.ics.minigolf.course.gamesummary.PlayerTableFragment"
+    android:name="sk.upjs.ics.minigolf.ui.course.gamesummary.PlayerTableFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layoutManager="android.support.v7.widget.LinearLayoutManager"

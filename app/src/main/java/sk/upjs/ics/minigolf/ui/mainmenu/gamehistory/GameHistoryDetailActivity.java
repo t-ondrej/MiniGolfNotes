@@ -1,17 +1,14 @@
-package sk.upjs.ics.minigolf.mainmenu.gamehistory;
+package sk.upjs.ics.minigolf.ui.mainmenu.gamehistory;
 
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import org.eazegraph.lib.charts.BarChart;
@@ -20,9 +17,9 @@ import org.eazegraph.lib.models.BarModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
-import sk.upjs.ics.minigolf.course.gamesummary.PlayerTableRecyclerViewAdapter;
 import sk.upjs.ics.minigolf.dataaccess.Contract;
 import sk.upjs.ics.minigolf.models.Game;
+import sk.upjs.ics.minigolf.ui.course.gamesummary.PlayerTableRecyclerViewAdapter;
 
 public class GameHistoryDetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 

@@ -1,4 +1,4 @@
-package sk.upjs.ics.minigolf.course;
+package sk.upjs.ics.minigolf.ui.course;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.View;
 
 import sk.upjs.ics.minigolf.R;
-import sk.upjs.ics.minigolf.course.gamesummary.GameSummaryActivity;
 import sk.upjs.ics.minigolf.models.Game;
+import sk.upjs.ics.minigolf.ui.course.gamesummary.GameSummaryActivity;
 
 public class CourseActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".course.gamesummary.GameSummaryActivity"
+    tools:context=".ui.course.gamesummary.GameSummaryActivity"
     tools:showIn="@layout/gamesummary_activity"
     android:orientation="vertical"
     android:clipChildren="false"

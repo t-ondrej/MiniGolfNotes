@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainmenu.gamehistory.GameHistoryDetailActivity"
+    tools:context=".ui.mainmenu.gamehistory.GameHistoryDetailActivity"
     android:background="@color/white_grey">
 
     <android.support.design.widget.AppBarLayout

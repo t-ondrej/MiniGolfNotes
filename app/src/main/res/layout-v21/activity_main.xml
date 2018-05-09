@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
     android:layout_alignParentBottom="true"
-    tools:context="sk.upjs.ics.minigolf.mainmenu.MainActivity">
+    tools:context="sk.upjs.ics.minigolf.ui.mainmenu.MainActivity">
 
 
     <android.support.design.widget.TabLayout

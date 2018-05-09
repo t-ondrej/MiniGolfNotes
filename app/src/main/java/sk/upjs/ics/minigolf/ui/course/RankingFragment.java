@@ -1,4 +1,4 @@
-package sk.upjs.ics.minigolf.course;
+package sk.upjs.ics.minigolf.ui.course;
 
 import android.os.Bundle;
 import android.os.Parcelable;

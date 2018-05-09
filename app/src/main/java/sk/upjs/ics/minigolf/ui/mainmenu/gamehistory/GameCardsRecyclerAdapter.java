@@ -1,4 +1,4 @@
-package sk.upjs.ics.minigolf.mainmenu.gamehistory;
+package sk.upjs.ics.minigolf.ui.mainmenu.gamehistory;
 
 import android.content.AsyncQueryHandler;
 import android.content.Context;

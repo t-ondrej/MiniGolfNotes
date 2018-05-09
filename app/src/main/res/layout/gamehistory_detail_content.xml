@@ -7,7 +7,7 @@
     android:layout_marginBottom="16dp"
     android:paddingBottom="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".mainmenu.gamehistory.GameHistoryDetailActivity"
+    tools:context=".ui.mainmenu.gamehistory.GameHistoryDetailActivity"
     tools:layout_editor_absoluteX="-1dp"
     tools:showIn="@layout/gamehistory_detail_activity">
 

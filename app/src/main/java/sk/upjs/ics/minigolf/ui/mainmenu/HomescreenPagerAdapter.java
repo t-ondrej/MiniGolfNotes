@@ -1,11 +1,11 @@
-package sk.upjs.ics.minigolf.mainmenu;
+package sk.upjs.ics.minigolf.ui.mainmenu;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import sk.upjs.ics.minigolf.mainmenu.gamehistory.GameHistoryFragment;
-import sk.upjs.ics.minigolf.mainmenu.newgame.NewGameFragment;
+import sk.upjs.ics.minigolf.ui.mainmenu.gamehistory.GameHistoryFragment;
+import sk.upjs.ics.minigolf.ui.mainmenu.newgame.NewGameFragment;
 
 public class HomescreenPagerAdapter extends FragmentStatePagerAdapter {
 

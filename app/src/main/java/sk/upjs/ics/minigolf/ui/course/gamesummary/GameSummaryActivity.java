@@ -1,4 +1,4 @@
-package sk.upjs.ics.minigolf.course.gamesummary;
+package sk.upjs.ics.minigolf.ui.course.gamesummary;
 
 import android.annotation.SuppressLint;
 import android.content.AsyncQueryHandler;
@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -23,17 +22,15 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.Utils;
 import sk.upjs.ics.minigolf.dataaccess.Contract;
-import sk.upjs.ics.minigolf.mainmenu.MainActivity;
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
+import sk.upjs.ics.minigolf.ui.mainmenu.MainActivity;
 
 import static sk.upjs.ics.minigolf.Utils.verifyStoragePermissions;
 import static sk.upjs.ics.minigolf.dataaccess.Constants.NO_COOKIE;
