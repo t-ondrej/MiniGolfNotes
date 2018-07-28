@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.upjs.ics.minigolf.GameHolder;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.Utils;
 import sk.upjs.ics.minigolf.dataaccess.Contract;
@@ -42,7 +43,7 @@ public class GameSummaryActivity extends AppCompatActivity {
     @BindView(R.id.gamesummaryTabLayout)    TabLayout gamesummaryTabLayout;
     @BindView(R.id.gamesummaryPager)        ViewPager gamesummaryPager;
 
-    private Game game;
+    private Game game = GameHolder.INSTANCE.getGame();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +51,13 @@ public class GameSummaryActivity extends AppCompatActivity {
         setContentView(R.layout.gamesummary_activity);
         ButterKnife.bind(this);
 
+        /* [OLD]
         if (savedInstanceState != null) {
             game = Game.fromBundle(savedInstanceState);
         } else {
             Bundle extras = getIntent().getExtras();
             game = Game.fromBundle(extras);
-        }
+        }*/
 
         if (game.getPhotoPath() != null) {
             setPic();
@@ -75,7 +77,7 @@ public class GameSummaryActivity extends AppCompatActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        game.toBundle(outState);
+        // [OLD] game.toBundle(outState);
 
         // call superclass to save any view hierarchy
         super.onSaveInstanceState(outState);

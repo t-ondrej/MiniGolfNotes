@@ -284,7 +284,6 @@ public class Game implements PlayerManager {
     }
 
     public Date getDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
         Date resultdate = new Date(timestamp);
         return resultdate;
     }

@@ -20,6 +20,7 @@ import android.widget.Switch;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import sk.upjs.ics.minigolf.GameHolder;
 import sk.upjs.ics.minigolf.R;
 
 import sk.upjs.ics.minigolf.models.Game;
@@ -51,22 +52,14 @@ public class NewGameFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         if (savedInstanceState != null) {
-            game = Game.fromBundle(savedInstanceState);
+            game = GameHolder.INSTANCE.initExistingGame(savedInstanceState);
         }
         else {
-            game = Game.createFreshGame(getResources());
+            game = GameHolder.INSTANCE.initNewGame(getResources());
             newGamePlayersRecyclerAdapter = new NewGamePlayersRecyclerAdapter(game, this.getContext());
             recyclerView.setAdapter(newGamePlayersRecyclerAdapter);
         }
         return view;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        game.toBundle(outState);
-
-        // call superclass to save any view hierarchy
-        super.onSaveInstanceState(outState);
     }
 
 
@@ -81,6 +74,7 @@ public class NewGameFragment extends Fragment {
     public void onStartGameImageButtonClicked(View view) {
         game.setHoleCount(Integer.parseInt(holesCountField.getText().toString()));
         game.setHitCountMax(Integer.parseInt(hitCountField.getText().toString()));
+
         for (Player player : game.getPlayers())
             player.createScoreArray(game.getHoleCount());
 
@@ -104,7 +98,6 @@ public class NewGameFragment extends Fragment {
         }
 
         Intent intent = new Intent(getActivity(), CourseActivity.class);
-        intent = intent.putExtras(game.toBundle());
         startActivity(intent);
     }
 }

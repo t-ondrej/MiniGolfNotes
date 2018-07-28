@@ -8,35 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import sk.upjs.ics.minigolf.GameHolder;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.ui.course.gamesummary.GameSummaryActivity;
 
 public class CourseActivity extends AppCompatActivity {
 
-    private Game game;
+    private Game game = GameHolder.INSTANCE.getGame();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_activity);
 
-        if (savedInstanceState != null) {
-            game = game.fromBundle(savedInstanceState);
-        } else {
-            Bundle extras = getIntent().getExtras();
-            game = Game.fromBundle(extras);
-        }
-
         configureTabLayout();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        game.toBundle(outState);
-
-        // call superclass to save any view hierarchy
-        super.onSaveInstanceState(outState);
     }
 
     private void configureTabLayout() {

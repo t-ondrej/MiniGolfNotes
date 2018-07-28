@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.upjs.ics.minigolf.GameHolder;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.models.Game;
 
@@ -20,7 +21,7 @@ public class RankingFragment extends Fragment {
     @BindView(R.id.rankingPlayersRecyclerView)  RecyclerView rankingPlayersRecyclerView;
     @BindView(R.id.holeNameTextView)            TextView holeNameTextView;
 
-    private Game game;
+    private Game game = GameHolder.INSTANCE.getGame();
     private int holeIdx;
     private static final String ARG_HOLE_INDEX = "hole_index";
     private static final String LIST_STATE_KEY = "list_state";
@@ -43,12 +44,10 @@ public class RankingFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            game = Game.fromBundle(savedInstanceState);
             holeIdx = savedInstanceState.getInt(ARG_HOLE_INDEX);
         } else {
             Bundle arguments = getArguments();
             holeIdx = arguments.getInt(ARG_HOLE_INDEX);
-            game = Game.fromBundle(arguments);
         }
     }
 
@@ -73,7 +72,6 @@ public class RankingFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        game.toBundle(outState);
         outState.putInt(ARG_HOLE_INDEX, holeIdx);
         Parcelable mListState = rankingPlayersRecyclerView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(LIST_STATE_KEY, mListState);

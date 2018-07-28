@@ -13,6 +13,7 @@ import java.util.Date;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 
 public final class Utils {
+
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {

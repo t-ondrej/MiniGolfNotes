@@ -16,6 +16,7 @@ import org.eazegraph.lib.models.BarModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import sk.upjs.ics.minigolf.GameHolder;
 import sk.upjs.ics.minigolf.R;
 import sk.upjs.ics.minigolf.dataaccess.Contract;
 import sk.upjs.ics.minigolf.models.Game;
