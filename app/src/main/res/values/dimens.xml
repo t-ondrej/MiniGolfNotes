@@ -9,6 +9,7 @@
 
     <!-- My dimens -->
     <dimen name="margin">16dp</dimen>
+    <dimen name="margin_half">8dp</dimen>
 
     <dimen name="material_text_button">14sp</dimen>
     <dimen name="material_text_menu">14sp</dimen>

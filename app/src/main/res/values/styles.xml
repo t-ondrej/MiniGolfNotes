@@ -28,7 +28,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/material_text_body1</item>
         <item name="android:textColor">@android:color/tertiary_text_dark</item>
-        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_half</item>
     </style>
 
     <style name="textViewBody">
@@ -44,7 +44,7 @@
     <style name="textFieldPlayer">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_marginTop">@dimen/margin</item>
+
         <item name="android:textSize">@dimen/material_text_body1</item>
         <item name="android:textColor">@color/secondary_text</item>
         <item name="android:backgroundTint">@color/color_primary</item>

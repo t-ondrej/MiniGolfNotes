@@ -50,4 +50,5 @@ dependencies {
 
     compile 'com.github.ronaldsmartin:Material-ViewPagerIndicator:1.0.4'
     compile 'com.github.vajro:MaterialDesignLibrary:1.6'
+    implementation 'com.github.warkiz.widget:indicatorseekbar:2.0.9'
 }

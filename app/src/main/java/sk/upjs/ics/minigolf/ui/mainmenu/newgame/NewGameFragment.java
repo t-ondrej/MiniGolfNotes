@@ -13,16 +13,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
+
+import com.warkiz.widget.IndicatorSeekBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import sk.upjs.ics.minigolf.GameHolder;
 import sk.upjs.ics.minigolf.R;
-
 import sk.upjs.ics.minigolf.models.Game;
 import sk.upjs.ics.minigolf.models.Player;
 import sk.upjs.ics.minigolf.ui.course.CourseActivity;
@@ -36,8 +36,8 @@ public class NewGameFragment extends Fragment {
     @BindView(R.id.addPlayerFloatingActionButton)   FloatingActionButton addPlayerButton;
     @BindView(R.id.startGameImageButton)            ImageButton startGameImageButton;
     @BindView(R.id.saveLocationSwitch)              Switch saveLocationSwitch;
-    @BindView(R.id.hitCountEditText)                EditText hitCountField;
-    @BindView(R.id.holeCountEditText)               EditText holesCountField;
+    @BindView(R.id.hitCountSeekBar)                 IndicatorSeekBar hitCountSeekBar;
+    @BindView(R.id.holeCountSeekBar)                IndicatorSeekBar holesCountSeekBar;
 
     private NewGamePlayersRecyclerAdapter newGamePlayersRecyclerAdapter;
     private Game game;
@@ -72,8 +72,8 @@ public class NewGameFragment extends Fragment {
 
     @OnClick(R.id.startGameImageButton)
     public void onStartGameImageButtonClicked(View view) {
-        game.setHoleCount(Integer.parseInt(holesCountField.getText().toString()));
-        game.setHitCountMax(Integer.parseInt(hitCountField.getText().toString()));
+        game.setHoleCount(holesCountSeekBar.getProgress());
+        game.setHitCountMax(hitCountSeekBar.getProgress());
 
         for (Player player : game.getPlayers())
             player.createScoreArray(game.getHoleCount());
